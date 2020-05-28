@@ -10,7 +10,7 @@ async def on_ready():
 
 CHANNEL_ID = 709606780631777360
 	
-list = ["apple","orange","lemon","テスト"]
+list = ["死ね","カス","キチガイ","基地外","くそ","ガキ" ]
  
 @client.event
 async def on_message(message):    
