@@ -3,10 +3,19 @@ from discord.ext import commands
 
 client = discord.Client()
 
+CHANNEL_ID = 987654321987654321 
+CHANNEL_IDD = 704908660274364471
+
+
+async def greet():
+    channel = client.get_channel(CHANNEL_IDD)
+    await channel.send('管理BOTは起動しました')
+
 
 @client.event
 async def on_ready():
     await client.change_presence(activity=discord.Game(name='稼働中'))
+    await greet()
 
 CHANNEL_ID = 709606780631777360
 	
