@@ -17,7 +17,7 @@ async def on_ready():
     await client.change_presence(activity=discord.Game(name='稼働中'))
     await greet()
 
-CHANNEL_ID = 709606780631777360
+CHANNEL_ID = 713931338092118027
 	
 list = ["死ね","カス","キチガイ","基地外","くそ","ガキ" ]
  
