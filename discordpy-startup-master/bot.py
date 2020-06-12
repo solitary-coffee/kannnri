@@ -186,7 +186,7 @@ async def he(ctx):
 
 
            
-client.run("NzEyNTk3MjE4MzgwNzQyNjk5.XtMLNw.tbWatTcfovhYmVd7yKSaS6RoULg")
+.run("NzEyNTk3MjE4MzgwNzQyNjk5.XtMLNw.tbWatTcfovhYmVd7yKSaS6RoULg")
 
            
        
