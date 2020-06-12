@@ -25,6 +25,18 @@ async def ik(ctx):
 @bot.command()
 async def ku(ctx):
     await bot.change_presence(activity=discord.Game(name='更新中'))
+  
+@bot.command()
+async def kus(ctx):
+    await bot.change_presence(activity=discord.Game(name='更新の準備中'))
+
+@bot.command()
+async def tt(ctx):
+    await bot.change_presence(activity=discord.Game(name='テスト中'))
+
+@bot.command()
+async def de(ctx):
+    await bot.change_presence(activity=discord.Game(name='デバッグ中何回か落ちる可能性あり'))
 
 @bot.command()
 async def no(ctx):
