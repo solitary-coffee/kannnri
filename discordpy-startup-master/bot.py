@@ -1,25 +1,43 @@
 import discord
-import rog
 from discord.ext import commands
-
+import typing
+import random
+import time
+import abc
+import rog
 
 client = discord.Client()
-
-CHANNEL_ID = 987654321987654321 
-CHANNEL_IDD = 704908660274364471
+bot = commands.Bot(command_prefix='/')
 
 
-@client.event
-async def on_ready():
-    await client.change_presence(activity=discord.Game(name='稼働中'))
+@bot.command()
+async def kd(ctx):
+    await bot.change_presence(activity=discord.Game(name='稼働中'))
+
+@bot.command()
+async def ks(ctx):
+    await bot.change_presence(activity=discord.Game(name='故障中'))
+
+@bot.command()
+async def ik(ctx):
+    await bot.change_presence(activity=discord.Game(name='逝かれた'))
+
+@bot.command()
+async def ku(ctx):
+    await bot.change_presence(activity=discord.Game(name='更新中'))
+
+@bot.command()
+async def no(ctx):
+    await bot.change_presence(activity=None)
+
+@bot.command()
+async def s(ctx):
+    for s in client.guilds:
+        print(s)
 
 
-CHANNEL_ID = 709606780631777360
-	
-@client.event
+@bot.event
 async def on_message(message):  
-    if message.content == '/list':
-      await message.channel.send(rog.list) 
     for word in rog.list:
       if message.author.bot:
         return
@@ -35,9 +53,134 @@ async def on_message(message):
         embed.add_field(name="違反した時間（UTC時間です日本時間は+９時間", value= message.created_at, inline=True)
                                                       
 
-        await message.channel.send(embed=embed)	
+        await message.channel.send(embed=embed)
+    await bot.process_commands(message)
 
 
+
+
+       
+
+
+
+
+class MemberRoles(commands.MemberConverter):
+    async def convert(self, ctx, argument):
+        member = await super().convert(ctx, argument)
+        return [role.name for role in member.roles[1:]] # Remove everyone role!
+
+@bot.command()
+async def r(ctx, *, member: MemberRoles ):
+    """Tells you a member's roles."""
+    await ctx.send('ロール: ' + ', '.join(member))
+
+@r.error
+async def r_error(ctx, error):
+    if isinstance(error, commands.BadArgument):
+        await ctx.send('IDが間違っている可能性があります\nやり直してください')
+
+@bot.command()
+async def t(ctx, a: int, b: int):
+    await ctx.send(a+b)
+@t.error
+async def t_error(ctx, error):
+    if isinstance(error, commands.BadArgument):
+        await ctx.send('数字・空白がない可能性があります\nやり直してください')
+
+@bot.command()
+async def h(ctx, a: int, b: int):
+    await ctx.send(a-b)
+@h.error
+async def h_error(ctx, error):
+    if isinstance(error, commands.BadArgument):
+        await ctx.send('数字・空白がない可能性があります\nやり直してください')
+
+@bot.command()
+async def k(ctx, a: int, b: int):
+    await ctx.send(a*b)
+
+@k.error
+async def k_error(ctx, error):
+    if isinstance(error, commands.BadArgument):
+        await ctx.send('数字・空白がない可能性があります\nやり直してください')
+
+@bot.command()
+async def w(ctx, a: int, b: int):
+    await ctx.send(a/b)
+
+@w.error
+async def w_error(ctx, error):
+    if isinstance(error, commands.BadArgument):
+        await ctx.send('数字・空白がない可能性があります\nやり直してください')
+
+
+
+@bot.command()
+async def j(ctx, *, member: discord.Member):
+    await ctx.send('{0} 入室履歴: {0.joined_at}' .format(member))
+
+@j.error
+async def j_error(ctx, error):
+    if isinstance(error, commands.BadArgument):
+        await ctx.send('IDが間違っている可能性があります\nやり直してくさい')
+
+@bot.command()
+async def d(ctx):
+    await ctx.send("ダイスをスタートします最初に1000渡します")   
+
+    num_random = random.randrange(-1000,+1000)
+    m = int(num_random)
+    if 1000> m> 0:
+        time.sleep(2)
+        await ctx.send(m)
+        await ctx.send(m+1000)
+
+        await ctx.send('やりましたね～～さぁ次も・・・')
+        await ctx.send('再び実行する際は/dをお願いします')
+
+        
+    else:
+        time.sleep(2)
+        await ctx.send(m)
+        await ctx.send(m-1000)
+
+        await ctx.send('うーーん次がありますよ')
+        await ctx.send('再び実行する際は/dをお願いします')
+
+#さいしょに1000渡してそれを定義そこから1000-ｍでとれるかも・・・・/dしたら1000渡してスタートawaitで1000-ｍでおｋ・・・？
+
+@bot.command()
+async def em(ctx, a, b, c, d):
+    embed=discord.Embed(title= a,description= b, color=0xdc0909)
+    embed.add_field(name= c, value= d, inline=True)
+
+@em.error
+async def em_error(ctx, error):
+    if isinstance(error, commands.BadArgument):
+        await ctx.send('空白がない可能性があります\nやり直してください')
+
+
+    
+@bot.command()
+async def he(ctx):
+    embed=discord.Embed(title=" 管理BOTのヘルプです",description= "コマンドの説明", color=0xdc0909)
+    embed.add_field(name= "```/help```", value= "これです", inline=False)
+    embed.add_field(name= "```/r [ユーザーID]```", value= "ユーザーのIDをいれてこの指定したIDについているロールを表示します", inline=False)
+    embed.add_field(name= "```/j [ユーザーID]```", value= "ユーザーのIDをいれてこの指定したIDがこのサーバーに入室した日時を表示します", inline=False)
+    embed.add_field(name= "```/em [タイトル] [サブタイトル]　[コメント1] [コメント2]```", value= "埋め込みで表示されます", inline=False)
+    embed.add_field(name= "```/d```", value= "ダイスです暇なときどうぞ", inline=False)
+ 
+    embed.add_field(name= "```/k [足される数] [足す数]```", value= "足し算ができます", inline=False)
+    embed.add_field(name= "```/h [引かれる数] [引く数]```", value= "引き算ができます", inline=False)
+    embed.add_field(name= "```/k [掛ける数] [掛けられる数]```", value= "掛け算ができます", inline=False)
+    embed.add_field(name= "```/w [割られる数] [割る数]```", value= "割り算算ができます", inline=False)
+    embed.add_field(name= "告知", value= "なにか追加してほしい機能があった場合はDMで孤独のコーヒーまで", inline=False)
+
+
+
+
+      
+    await ctx.send(embed=embed)
 
 
 
