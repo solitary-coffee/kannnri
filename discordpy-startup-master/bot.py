@@ -36,7 +36,7 @@ async def tt(ctx):
 
 @bot.command()
 async def de(ctx):
-    await bot.change_presence(activity=discord.Game(name='デバッグ中何回か落ちる可能性あり'))
+    await bot.change_presence(activity=discord.Game(name='デバッグ中落ちる可能性あり'))
 
 @bot.command()
 async def no(ctx):
