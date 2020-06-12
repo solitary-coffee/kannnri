@@ -186,7 +186,7 @@ async def he(ctx):
 
 
            
-.run("NzEyNTk3MjE4MzgwNzQyNjk5.XtMLNw.tbWatTcfovhYmVd7yKSaS6RoULg")
+bot.run("NzEyNTk3MjE4MzgwNzQyNjk5.XtMLNw.tbWatTcfovhYmVd7yKSaS6RoULg")
 
            
        
