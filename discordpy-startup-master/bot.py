@@ -153,6 +153,7 @@ async def d(ctx):
 async def em(ctx, a, b, c, d):
     embed=discord.Embed(title= a,description= b, color=0xdc0909)
     embed.add_field(name= c, value= d, inline=True)
+    await ctx.send(embed=embed)
 
 @em.error
 async def em_error(ctx, error):
