@@ -46,6 +46,25 @@ async def no(ctx):
 async def s(ctx):
     for s in client.guilds:
         print(s)
+      
+
+@bot.command()
+@commands.cooldown(1, 60, commands.BucketType.user)
+async def dm(ctx, *, naiyou):
+    dm = bot.get_user(637850681666961408)
+    embed=discord.Embed(title= "メッセージを受信",description= "サーバからです" , color=0x3498db)
+    embed.add_field(name= ctx.message.channel , value=  ctx.message.guild.name, inline=False)
+    embed.add_field(name= ctx.message.author.name, value= naiyou, inline=False)
+
+
+    await dm.send(embed=embed)
+    await ctx.message.delete()
+                                     
+@dm.error
+async def dm_error(ctx, error):
+    if isinstance(error, commands.CommandOnCooldown):
+        await ctx.message.delete()
+        await ctx.send('現在クールタイム中です %.2f秒後にもう一度やり直してください' % error.retry_after)
 
 
 @bot.event
@@ -187,6 +206,7 @@ async def he(ctx):
     embed.add_field(name= "```/h [引かれる数] [引く数]```", value= "引き算ができます", inline=False)
     embed.add_field(name= "```/k [掛ける数] [掛けられる数]```", value= "掛け算ができます", inline=False)
     embed.add_field(name= "```/w [割られる数] [割る数]```", value= "割り算算ができます", inline=False)
+    embed.add_field(name= "```/dm [送る言葉]```", value= "BOT開発者にDMを送ることができます（常識は守るように", inline=False)
     embed.add_field(name= "告知", value= "なにか追加してほしい機能があった場合はDMで孤独のコーヒーまで", inline=False)
 
 
