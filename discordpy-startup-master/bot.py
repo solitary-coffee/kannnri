@@ -235,7 +235,7 @@ async def he(ctx):
     embed.add_field(name= "告知", value= "なにか追加してほしい機能があった場合はDMで孤独のコーヒーまで", inline=False)
 
 
-
+    
 
       
     await ctx.send(embed=embed)
