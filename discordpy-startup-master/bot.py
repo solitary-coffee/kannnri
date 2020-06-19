@@ -36,7 +36,7 @@ async def tt(ctx):
 
 @bot.command()
 async def de(ctx):
-    await bot.change_presence(activity=discord.Game(name='デバッグ中落ちる可能性あり'))
+    await bot.change_presence(activity=discord.Game(name='テスト中落ちる可能性あり'))
 
 @bot.command()
 async def no(ctx):
@@ -90,7 +90,32 @@ async def on_message(message):
 
 
 
+@bot.command()
+async def ping(ctx):
+    time_1 = time.perf_counter()
+    await ctx.trigger_typing()
+    time_2 = time.perf_counter()
+    ping1 = round((time_2-time_1)*1000)
+    time_3 = time.perf_counter()
+    await ctx.trigger_typing()
+    time_4 = time.perf_counter()
+    ping2 = round((time_4-time_3)*1000)
+    time_5 = time.perf_counter()
+    await ctx.trigger_typing()
+    time_6 = time.perf_counter()
+    ping3 = round((time_6-time_5)*1000)
        
+    tt  = ping1 + ping2 + ping3
+    tt1 = tt/3
+    keka    = (round(tt1, 2))
+    embed=discord.Embed(title= "ping確認",description= "測定結果", color=0xdc0909)
+    embed.add_field(name="1回目は:" , value=f"{ping1} ", inline=False)
+    embed.add_field(name="2回目は:" , value=f"{ping2} ", inline=False)
+    embed.add_field(name="3回目は:" , value=f"{ping3} ", inline=False)
+    embed.add_field(name="平均:" , value=keka , inline=False)
+    await ctx.send(embed=embed)
+
+
 
 
 
@@ -219,8 +244,9 @@ async def he(ctx):
 
 
            
-bot.run("NzEyNTk3MjE4MzgwNzQyNjk5.XtMLNw.tbWatTcfovhYmVd7yKSaS6RoULg")
+bot.run("NzEyNTk3MjE4MzgwNzQyNjk5.Xuyi9w.vlBZj8RKW4YUFhy3vNQFU8cFEoo")
 
            
        
+
 
