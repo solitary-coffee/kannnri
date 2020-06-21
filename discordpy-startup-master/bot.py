@@ -215,6 +215,26 @@ async def em(ctx, a, b, c, d):
 async def em_error(ctx, error):
     if isinstance(error, commands.BadArgument):
         await ctx.send('空白がない可能性があります\nやり直してください')
+        
+@bot.command()
+async def ritu(ctx):
+    total = psutil.virtual_memory().total/1000/1000/1000
+    use = psutil.virtual_memory().used/1000/1000/1000
+    kekka = round(use/total*100, 0)
+    content = int(kekka/5)
+    cpu = psutil.cpu_percent(interval=1)
+    content2 = int(cpu/5)        
+    memorymeter = ("|" * content) + (" " * (20-content))
+    cpumeter = ("|" * content2) + (" " * (20-content2))
+    embed = discord.Embed(
+        title="CPU/メモリ情報",
+        description=(
+            f"メモリ：{round(use, 1)}GB/{round(total, 1)}GB {kekka}%\n"
+            f"`[{memorymeter}`]\n"
+            f"CPU：{cpu}%\n"
+            f"`[{cpumeter}]`"),
+        color=0xff0000)
+    await ctx.send(embed=embed)
 
 
     
@@ -230,7 +250,9 @@ async def he(ctx):
     embed.add_field(name= "```/k [足される数] [足す数]```", value= "足し算ができます", inline=False)
     embed.add_field(name= "```/h [引かれる数] [引く数]```", value= "引き算ができます", inline=False)
     embed.add_field(name= "```/k [掛ける数] [掛けられる数]```", value= "掛け算ができます", inline=False)
-    embed.add_field(name= "```/w [割られる数] [割る数]```", value= "割り算算ができます", inline=False)
+    embed.add_field(name= "```/w [割られる数] [割る数]```", value= "割り算ができます", inline=False)
+    embed.add_field(name= "```/ritu```", value= "このＢＯＴを動かしている情報がみられます重いと感じた場合にお使いください", inline=False)
+    embed.add_field(name= "```/ping", value= "応答時間が見られます重いと感じた場合にお使いください", inline=False)
     embed.add_field(name= "```/dm [送る言葉]```", value= "BOT開発者にDMを送ることができます（常識は守るように", inline=False)
     embed.add_field(name= "告知", value= "なにか追加してほしい機能があった場合はDMで孤独のコーヒーまで", inline=False)
 
