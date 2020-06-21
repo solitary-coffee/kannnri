@@ -5,6 +5,8 @@ import random
 import time
 import abc
 import rog
+import psutil
+import matplotlib.pyplot as plt
 
 client = discord.Client()
 bot = commands.Bot(command_prefix='/')
