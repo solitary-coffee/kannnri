@@ -258,12 +258,11 @@ async def he(ctx):
     embed.add_field(name= "```/dm [送る言葉]```", value= "BOT開発者にDMを送ることができます（常識は守るように", inline=False)
     embed.add_field(name= "告知", value= "なにか追加してほしい機能があった場合はDMで孤独のコーヒーまで", inline=False)
 
-
-    async def create_channel(message, channel_name):
-    category_id = message.channel.category_id
-    category = message.guild.get_channel(category_id)
-    new_channel = await category.create_text_channel(name=channel_name)
-    return new_channel
+async def create_channel(message, channel_name):
+category_id = message.channel.category_id
+category = message.guild.get_channel(category_id)
+new_channel = await category.create_text_channel(name=channel_name)
+return new_channel
 
 # 発言時に実行されるイベントハンドラを定義
 
