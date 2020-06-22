@@ -259,7 +259,43 @@ async def he(ctx):
     embed.add_field(name= "告知", value= "なにか追加してほしい機能があった場合はDMで孤独のコーヒーまで", inline=False)
 
 
+    async def create_channel(message, channel_name):
+    category_id = message.channel.category_id
+    category = message.guild.get_channel(category_id)
+    new_channel = await category.create_text_channel(name=channel_name)
+    return new_channel
+
+# 発言時に実行されるイベントハンドラを定義
+
+@bot.command()
+async def newch(ctx,ss):
+    if ctx.message.author.guild_permissions.administrator:
+        # チャンネルを作成する非同期関数を実行して Channel オブジェクトを取得
+        new_channel = await create_channel(ctx, channel_name=ss)
+
+        # チャンネルのリンクと作成メッセージを送信
+        text = f'{new_channel.mention} を作成しました'
+        await ctx.send(text)
+    else:
+        await ctx.send('このコマンドはサーバー管理者のみ使えます')
+
+           
+
+
+@bot.command()
+async def delch(ctx,channel:discord.TextChannel):
+    if ctx.message.author.guild_permissions.administrator:
+        text = f'{channel.mention} を削除しました'
+        await ctx.send(text)
+        await channel.delete()
+    else:
+        await ctx.send('このコマンドはサーバー管理者のみ使えます')
     
+@bot.command()
+async def ke(ctx,*,ss):
+    await ctx.message.delete()
+    await ctx.send(ss)   
+
 
       
     await ctx.send(embed=embed)
