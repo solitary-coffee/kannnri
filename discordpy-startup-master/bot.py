@@ -11,49 +11,13 @@ import matplotlib.pyplot as plt
 client = discord.Client()
 bot = commands.Bot(command_prefix='/')
 
+ID = 637850681666961408
 
-@bot.command()
-async def kd(ctx):
-    await bot.change_presence(activity=discord.Game(name='稼働中'))
-
-@bot.command()
-async def ks(ctx):
-    await bot.change_presence(activity=discord.Game(name='故障中'))
-
-@bot.command()
-async def ik(ctx):
-    await bot.change_presence(activity=discord.Game(name='逝かれた'))
-
-@bot.command()
-async def ku(ctx):
-    await bot.change_presence(activity=discord.Game(name='更新中'))
-  
-@bot.command()
-async def kus(ctx):
-    await bot.change_presence(activity=discord.Game(name='更新の準備中'))
-
-@bot.command()
-async def tt(ctx):
-    await bot.change_presence(activity=discord.Game(name='テスト中'))
-
-@bot.command()
-async def de(ctx):
-    await bot.change_presence(activity=discord.Game(name='テスト中落ちる可能性あり'))
-
-@bot.command()
-async def no(ctx):
-    await bot.change_presence(activity=None)
-
-@bot.command()
-async def s(ctx):
-    for s in client.guilds:
-        print(s)
-      
 
 @bot.command()
 @commands.cooldown(1, 60, commands.BucketType.user)
 async def dm(ctx, *, naiyou):
-    dm = bot.get_user(637850681666961408)
+    dm = bot.get_user(ID)
     embed=discord.Embed(title= "メッセージを受信",description= "サーバからです" , color=0x3498db)
     embed.add_field(name= ctx.message.channel , value=  ctx.message.guild.name, inline=False)
     embed.add_field(name= ctx.message.author.name, value= naiyou, inline=False)
@@ -90,7 +54,12 @@ async def on_message(message):
     await bot.process_commands(message)
 
 
-
+@bot.command()
+async def kt(ctx,kasutamu):
+    if ctx.message.author.id == ID:    
+        await bot.change_presence(activity=discord.Game(name=kasutamu))
+    else:
+        await ctx.send("このコマンドは管理者専用です")
 
 @bot.command()
 async def ping(ctx):
@@ -132,44 +101,26 @@ async def r(ctx, *, member: MemberRoles ):
     """Tells you a member's roles."""
     await ctx.send('ロール: ' + ', '.join(member))
 
-@r.error
-async def r_error(ctx, error):
-    if isinstance(error, commands.BadArgument):
-        await ctx.send('IDが間違っている可能性があります\nやり直してください')
-
 @bot.command()
 async def t(ctx, a: int, b: int):
     await ctx.send(a+b)
-@t.error
-async def t_error(ctx, error):
-    if isinstance(error, commands.BadArgument):
-        await ctx.send('数字・空白がない可能性があります\nやり直してください')
 
 @bot.command()
 async def h(ctx, a: int, b: int):
     await ctx.send(a-b)
-@h.error
-async def h_error(ctx, error):
-    if isinstance(error, commands.BadArgument):
-        await ctx.send('数字・空白がない可能性があります\nやり直してください')
+
 
 @bot.command()
 async def k(ctx, a: int, b: int):
     await ctx.send(a*b)
 
-@k.error
-async def k_error(ctx, error):
-    if isinstance(error, commands.BadArgument):
-        await ctx.send('数字・空白がない可能性があります\nやり直してください')
+
 
 @bot.command()
 async def w(ctx, a: int, b: int):
     await ctx.send(a/b)
 
-@w.error
-async def w_error(ctx, error):
-    if isinstance(error, commands.BadArgument):
-        await ctx.send('数字・空白がない可能性があります\nやり直してください')
+
 
 
 
@@ -177,10 +128,7 @@ async def w_error(ctx, error):
 async def j(ctx, *, member: discord.Member):
     await ctx.send('{0} 入室履歴: {0.joined_at}' .format(member))
 
-@j.error
-async def j_error(ctx, error):
-    if isinstance(error, commands.BadArgument):
-        await ctx.send('IDが間違っている可能性があります\nやり直してくさい')
+
 
 @bot.command()
 async def d(ctx):
@@ -213,11 +161,9 @@ async def em(ctx, a, b, c, d):
     embed.add_field(name= c, value= d, inline=True)
     await ctx.send(embed=embed)
 
-@em.error
-async def em_error(ctx, error):
-    if isinstance(error, commands.BadArgument):
-        await ctx.send('空白がない可能性があります\nやり直してください')
+
         
+
 @bot.command()
 async def ritu(ctx):
     total = psutil.virtual_memory().total/1000/1000/1000
@@ -231,15 +177,61 @@ async def ritu(ctx):
     embed = discord.Embed(
         title="CPU/メモリ情報",
         description=(
-            f"メモリ：{round(use, 1)}GB/{round(total, 1)}GB {kekka}%\n"
+            f"メモリ使用量：{round(use, 1)}GB\n"
+            f"メモリ搭載量：{round(total, 1)}GB\n"
+            f"メモリ使用率{kekka}%\n"
             f"`[{memorymeter}`]\n"
             f"CPU：{cpu}%\n"
             f"`[{cpumeter}]`"),
         color=0xff0000)
-    await ctx.send(embed=embed)
+    await ctx.send(embed=embed)      
 
 
-    
+async def create_channel(message, channel_name):
+    category_id = message.channel.category_id
+    category = message.guild.get_channel(category_id)
+    new_channel = await category.create_text_channel(name=channel_name)
+    return new_channel
+
+# 発言時に実行されるイベントハンドラを定義
+
+@bot.command()
+async def newch(ctx,ss):
+    if ctx.message.author.guild_permissions.administrator:
+        # チャンネルを作成する非同期関数を実行して Channel オブジェクトを取得
+        new_channel = await create_channel(ctx, channel_name=ss)
+
+        # チャンネルのリンクと作成メッセージを送信
+        text = f'{new_channel.mention} を作成しました'
+        await ctx.send(text)
+    elif ctx.message.author.id == ID:    
+        new_channel = await create_channel(ctx, channel_name=ss)
+
+        # チャンネルのリンクと作成メッセージを送信
+        text = f'{new_channel.mention} を作成しました'
+        await ctx.send(text)
+
+    else:
+        await ctx.send('このコマンドはサーバー管理者のみ使えます')
+
+ 
+
+@bot.command()
+async def delch(ctx,channel:discord.TextChannel):
+    if ctx.message.author.id == ID:    
+        text = f'{channel.mention} を削除しました'
+        await ctx.send(text)
+        await channel.delete()
+
+    elif ctx.message.author.guild_permissions.administrator:    
+        text = f'{channel.mention} を削除しました'
+        await ctx.send(text)
+        await channel.delete()        
+    else:
+        await ctx.send("このコマンドは管理者専用です")
+
+
+
 @bot.command()
 async def he(ctx):
     embed=discord.Embed(title=" 管理BOTのヘルプです",description= "コマンドの説明", color=0xdc0909)
@@ -256,9 +248,12 @@ async def he(ctx):
     embed.add_field(name= "```/ritu```", value= "このＢＯＴを動かしている情報がみられます重いと感じた場合にお使いください", inline=False)
     embed.add_field(name= "```/ping", value= "応答時間が見られます重いと感じた場合にお使いください", inline=False)
     embed.add_field(name= "```/dm [送る言葉]```", value= "BOT開発者にDMを送ることができます（常識は守るように", inline=False)
-    embed.add_field(name= "告知", value= "なにか追加してほしい機能があった場合はDMで孤独のコーヒーまで", inline=False)
+    embed.add_field(name= "```/newch [チャンネル名]", value= "サーバー管理者のみ利用可能　新しくチャンネルを作ることができます", inline=False)
+    embed.add_field(name= "```/delch [チャンネル名]", value= "サーバー管理者のみ利用可能　チャンネルを削除できます", inline=False)
+    embed.add_field(name= "告知", value= "なにか追加してほしい機能があった場合・不具合などがあった場合/dmを利用し伝えてください", inline=False)
       
     await ctx.send(embed=embed)
+
 
 
 
