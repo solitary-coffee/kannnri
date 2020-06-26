@@ -121,6 +121,10 @@ async def w(ctx, a: int, b: int):
     await ctx.send(a/b)
 
 
+@bot.command()
+async def ke(ctx,*,ss):
+    await ctx.message.delete()
+    await ctx.send(ss)  
 
 
 
@@ -235,7 +239,7 @@ async def delch(ctx,channel:discord.TextChannel):
 @bot.command()
 async def he(ctx):
     embed=discord.Embed(title=" 管理BOTのヘルプです",description= "コマンドの説明", color=0xdc0909)
-    embed.add_field(name= "```/help```", value= "これです", inline=False)
+    embed.add_field(name= "```/he```", value= "これです", inline=False)
     embed.add_field(name= "```/r [ユーザーID]```", value= "ユーザーのIDをいれてこの指定したIDについているロールを表示します", inline=False)
     embed.add_field(name= "```/j [ユーザーID]```", value= "ユーザーのIDをいれてこの指定したIDがこのサーバーに入室した日時を表示します", inline=False)
     embed.add_field(name= "```/em [タイトル] [サブタイトル]　[コメント1] [コメント2]```", value= "埋め込みで表示されます", inline=False)
@@ -250,6 +254,7 @@ async def he(ctx):
     embed.add_field(name= "```/dm [送る言葉]```", value= "BOT開発者にDMを送ることができます（常識は守るように", inline=False)
     embed.add_field(name= "```/newch [チャンネル名]```", value= "サーバー管理者のみ利用可能　新しくチャンネルを作ることができます", inline=False)
     embed.add_field(name= "```/delch [チャンネル名]```", value= "サーバー管理者のみ利用可能　チャンネルを削除できます", inline=False)
+    embed.add_field(name= "```/ke [言葉]```", value= "BOTに喋らすことができますまた言葉がきえるます　（ボッチ用ですw)", inline=False)
     embed.add_field(name= "告知", value= "なにか追加してほしい機能があった場合・不具合などがあった場合/dmを利用し伝えてください", inline=False)
       
     await ctx.send(embed=embed)
