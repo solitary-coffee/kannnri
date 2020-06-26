@@ -246,10 +246,10 @@ async def he(ctx):
     embed.add_field(name= "```/k [掛ける数] [掛けられる数]```", value= "掛け算ができます", inline=False)
     embed.add_field(name= "```/w [割られる数] [割る数]```", value= "割り算ができます", inline=False)
     embed.add_field(name= "```/ritu```", value= "このＢＯＴを動かしている情報がみられます重いと感じた場合にお使いください", inline=False)
-    embed.add_field(name= "```/ping", value= "応答時間が見られます重いと感じた場合にお使いください", inline=False)
+    embed.add_field(name= "```/ping```", value= "応答時間が見られます重いと感じた場合にお使いください", inline=False)
     embed.add_field(name= "```/dm [送る言葉]```", value= "BOT開発者にDMを送ることができます（常識は守るように", inline=False)
-    embed.add_field(name= "```/newch [チャンネル名]", value= "サーバー管理者のみ利用可能　新しくチャンネルを作ることができます", inline=False)
-    embed.add_field(name= "```/delch [チャンネル名]", value= "サーバー管理者のみ利用可能　チャンネルを削除できます", inline=False)
+    embed.add_field(name= "```/newch [チャンネル名]```", value= "サーバー管理者のみ利用可能　新しくチャンネルを作ることができます", inline=False)
+    embed.add_field(name= "```/delch [チャンネル名]```", value= "サーバー管理者のみ利用可能　チャンネルを削除できます", inline=False)
     embed.add_field(name= "告知", value= "なにか追加してほしい機能があった場合・不具合などがあった場合/dmを利用し伝えてください", inline=False)
       
     await ctx.send(embed=embed)
