@@ -382,7 +382,7 @@ async def he(ctx):
     embed.add_field(name= "```/pause```", value= "一時停止します", inline=False)
     embed.add_field(name= "```/play```", value= "一時停止した時間から再開します", inline=False)
     embed.add_field(name= "```/stop```", value= "曲が停止します＆BOTがvcから抜けます", inline=False)
-    embed.add_field(name= "音楽流し方", value= "1.流したいｖｃに入ります　/n 2./yt・/stで流したい曲を指定します　/n 3. あとは待つだけ　/n 4.　終了したい場合は/stopをお願いします", inline=False)
+    embed.add_field(name= "音楽流し方", value= "1.流したいｖｃに入ります　\n 2./yt・/stで流したい曲を指定します　\n 3. あとは待つだけ　\n 4.　終了したい場合は/stopをお願いします", inline=False)
     embed.add_field(name= "告知", value= "なにか追加してほしい機能があった場合・不具合などがあった場合/dmを利用し伝えてください", inline=False)
     embed.add_field(name= "その他", value= "音楽を流す機能に検索・ループ・リストなど追加する予定です　しばらくお待ちください", inline=False)
       
