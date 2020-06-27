@@ -299,7 +299,7 @@ class Music(commands.Cog):
     @commands.command()
     async def yt(self, ctx, *, url):
         """Plays from a url (almost anything youtube_dl supports)"""
-
+        await ctx.send("ロード中です")
         async with ctx.typing():
             player = await YTDLSource.from_url(url, loop=self.bot.loop)
             ctx.voice_client.play(player, after=lambda e: print('Player error: %s' % e) if e else None)
@@ -377,7 +377,14 @@ async def he(ctx):
     embed.add_field(name= "```/newch [チャンネル名]```", value= "サーバー管理者のみ利用可能　新しくチャンネルを作ることができます", inline=False)
     embed.add_field(name= "```/delch [チャンネル名]```", value= "サーバー管理者のみ利用可能　チャンネルを削除できます", inline=False)
     embed.add_field(name= "```/ke [言葉]```", value= "BOTに喋らすことができますまた言葉がきえるます　（ボッチ用ですw)", inline=False)
+    embed.add_field(name= "```/yt [URL]```", value= "youtubeを流すことができます（音源のみ）"の, inline=False)
+    embed.add_field(name= "```/st [URL]```", value= "youtubeを流すことができます（音源のみ）"の, inline=False)
+    embed.add_field(name= "```/pause```", value= "一時停止します", inline=False)
+    embed.add_field(name= "```/play```", value= "一時停止した時間から再開します", inline=False)
+    embed.add_field(name= "```/stop```", value= "曲が停止します＆BOTがvcから抜けます", inline=False)
+    embed.add_field(name= "音楽流し方", value= "1.流したいｖｃに入ります　/n 2./yt・/stで流したい曲を指定します　/n 3. あとは待つだけ　/n 4.　終了したい場合は/stopをお願いします", inline=False)
     embed.add_field(name= "告知", value= "なにか追加してほしい機能があった場合・不具合などがあった場合/dmを利用し伝えてください", inline=False)
+    embed.add_field(name= "その他", value= "音楽を流す機能に検索・ループ・リストなど追加する予定です　しばらくお待ちください", inline=False)
       
     await ctx.send(embed=embed)
 
