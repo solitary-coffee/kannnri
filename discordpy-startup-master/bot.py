@@ -367,6 +367,24 @@ async def on_command_error(ctx,error):
 async def on_command_error(ctx,error):
     if isinstance(error,commands.CommandInvokeError):
         await ctx.send(f"{error}")
+       
+
+api_key = 'AIzaSyCyMz5iWCEX0vvUabjYld1i3kjV2i9wS3Y'
+
+def get_videos_search(keyword):
+    youtube = build('youtube', 'v3', developerKey=api_key)
+    youtube_query = youtube.search().list(q=keyword, part='id,snippet', maxResults=5)
+    youtube_res = youtube_query.execute()
+    return youtube_res.get('items', [])
+
+@bot.command()
+async def se(ctx,*,ss):
+    result = get_videos_search(ss)
+    for item in result:
+        if item['id']['kind'] == 'youtube#video':
+            embed=discord.Embed(title= "youtube検索結果",description= f"{ss}で検索しました", color=0xdc0909)
+            embed.add_field(name=item['snippet']['title'] , value= 'https://www.youtube.com/watch?v=' + item['id']['videoId'], inline=True)
+            await ctx.send(embed=embed)
 
 @bot.command()
 async def he(ctx):
