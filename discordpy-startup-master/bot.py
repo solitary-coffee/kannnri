@@ -357,6 +357,16 @@ class Music(commands.Cog):
                 raise commands.CommandError("Author not connected to a voice channel.")
         elif ctx.voice_client.is_playing():
             ctx.voice_client.stop()
+        
+@bot.event
+async def on_command_error(ctx,error):
+    if isinstance(error,commands.CommandNotFound):
+        await ctx.send(f"{error}")
+    
+@bot.event
+async def on_command_error(ctx,error):
+    if isinstance(error,commands.CommandInvokeError):
+        await ctx.send(f"{error}")
 
 @bot.command()
 async def he(ctx):
