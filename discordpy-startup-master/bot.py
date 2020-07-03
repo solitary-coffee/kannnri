@@ -18,6 +18,10 @@ bot = commands.Bot(command_prefix='/')
 
 ID = 637850681666961408
 
+t = Tokenizer()
+t_wakati = Tokenizer(wakati=True)
+
+
 
 @bot.command()
 @commands.cooldown(1, 60, commands.BucketType.user)
