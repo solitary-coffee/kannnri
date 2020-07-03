@@ -10,7 +10,6 @@ import matplotlib.pyplot as plt
 import asyncio
 import youtube_dl
 import ffmpeg
-from apiclient.discovery import build
 from janome.tokenizer import Tokenizer
 
 client = discord.Client()
@@ -373,15 +372,7 @@ class Music(commands.Cog):
         elif ctx.voice_client.is_playing():
             ctx.voice_client.stop()
         
-@bot.event
-async def on_command_error(ctx,error):
-    if isinstance(error,commands.CommandNotFound):
-        await ctx.send(f"{error}")
-    
-@bot.event
-async def on_command_error(ctx,error):
-    if isinstance(error,commands.CommandInvokeError):
-        await ctx.send(f"{error}")
+
        
 
 api_key = 'AIzaSyCyMz5iWCEX0vvUabjYld1i3kjV2i9wS3Y'
