@@ -2,3 +2,4 @@ discord.py[voice]>=1.3.2
 matplotlib
 ffmpeg-python
 youtube-dl
+psutil
