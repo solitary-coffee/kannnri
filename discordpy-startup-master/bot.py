@@ -5,6 +5,7 @@ import random
 import time
 import abc
 import rog
+import psutil
 import matplotlib.pyplot as plt
 import asyncio
 import youtube_dl
