@@ -16,7 +16,6 @@ client = discord.Client()
 bot = commands.Bot(command_prefix='/')
 
 ID = 637850681666961408
-
 t = Tokenizer()
 t_wakati = Tokenizer(wakati=True)
 
@@ -49,7 +48,6 @@ async def on_message(message):
 
     print(type(t.tokenize(s)))
     print(type(t.tokenize(s)[0]))
-    print(t.tokenize(s, wakati=True))
     me = t.tokenize(s, wakati=True)
     for word in me:
         if word in rog.list:
