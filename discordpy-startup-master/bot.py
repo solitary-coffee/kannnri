@@ -11,6 +11,7 @@ import asyncio
 import youtube_dl
 import ffmpeg
 from apiclient.discovery import build
+from janome.tokenizer import Tokenizer
 
 client = discord.Client()
 bot = commands.Bot(command_prefix='/')
