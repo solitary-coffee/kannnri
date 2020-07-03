@@ -15,8 +15,6 @@ client = discord.Client()
 bot = commands.Bot(command_prefix='/')
 
 ID = 637850681666961408
-t = Tokenizer()
-t_wakati = Tokenizer(wakati=True)
 
 
 
