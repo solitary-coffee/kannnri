@@ -1,6 +1,5 @@
 discord.py[voice]>=1.3.2
 psutil
 matplotlib
-youtube_dl
 ffmpeg-python
 Janome
