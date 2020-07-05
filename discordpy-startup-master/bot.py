@@ -43,7 +43,7 @@ async def dm_error(ctx, error):
 
 @bot.event
 async def on_message(message):  
-    if ctx.message.id = CHID
+    if ctx.message.id = chID
     
     else:
         
