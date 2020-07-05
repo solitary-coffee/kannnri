@@ -45,8 +45,7 @@ async def dm_error(ctx, error):
 async def on_message(message):  
     if ctx.message.id == chID:
         print("ok")
-    else:
-        
+    else:       
         for word in rog.list:
             if message.author.bot:
                 return
