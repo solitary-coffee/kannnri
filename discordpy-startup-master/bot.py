@@ -45,7 +45,7 @@ async def dm_error(ctx, error):
 async def on_message(message):  
     if message.channel.id == 719307017331802173:
         print("ok")
-    exif message.channel.id == 713588195555541033:
+    elif message.channel.id == 713588195555541033:
         print("ok")
     else:       
         for word in rog.list:
