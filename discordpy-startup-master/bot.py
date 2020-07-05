@@ -43,7 +43,7 @@ async def dm_error(ctx, error):
 
 @bot.event
 async def on_message(message):  
-    if ctx.message.id == chID:
+    if message.id == chID:
         print("ok")
     else:       
         for word in rog.list:
