@@ -18,7 +18,7 @@ bot = commands.Bot(command_prefix='/')
 
 ID = 637850681666961408
 
-CHID = ["719307017331802173","713588195555541033"]
+chID = ["719307017331802173","713588195555541033"]
 
 
 
@@ -43,7 +43,7 @@ async def dm_error(ctx, error):
 
 @bot.event
 async def on_message(message):  
-    if ctx.message.id = chID
+    if ctx.message.id == chID:
     
     else:
         
