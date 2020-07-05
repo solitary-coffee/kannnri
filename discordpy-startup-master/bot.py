@@ -43,7 +43,7 @@ async def dm_error(ctx, error):
 
 @bot.event
 async def on_message(message):  
-    if message.id == 719307017331802173　or 713588195555541033:
+    if message.id == 719307017331802173 or 713588195555541033:
         print("ok")
     else:       
         for word in rog.list:
