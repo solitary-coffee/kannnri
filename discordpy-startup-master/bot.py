@@ -47,6 +47,8 @@ async def on_message(message):
         print("ok")
     elif message.channel.id == 713588195555541033:
         print("ok")
+    elif message.channel.id == 721837476666409010:
+        print("ok")
     else:       
         for word in rog.list:
             if message.author.bot:
