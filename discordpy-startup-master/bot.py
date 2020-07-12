@@ -82,9 +82,8 @@ async def kt(ctx,kasutamu):
         await bot.change_presence(activity=discord.Game(name=kasutamu))
     else:
         await ctx.send("このコマンドは管理者専用です")
-
-@bot.has_role(ID)
 @bot.command(name='eval')
+@commands.has_any_role
 async def _eval(ctx, *, body):
     """Evaluates python code"""
     blocked_words = ['.delete()', 'os', 'subprocess', 'history()', '("token")', "('token')",
