@@ -87,7 +87,6 @@ async def kt(ctx,kasutamu):
 @bot.command(name='eval')
 async def _eval(ctx, *, body):
     if ctx.message.author.id == ID:    
-    """Evaluates python code"""
         blocked_words = ['.delete()', 'os', 'subprocess', 'history()', '("token")', "('token')",
                         'aW1wb3J0IG9zCnJldHVybiBvcy5lbnZpcm9uLmdldCgndG9rZW4nKQ==', 'aW1wb3J0IG9zCnByaW50KG9zLmVudmlyb24uZ2V0KCd0b2tlbicpKQ==']
         if ctx.author.id != bot.owner_id:
