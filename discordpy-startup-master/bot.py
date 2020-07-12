@@ -133,7 +133,7 @@ async def _eval(ctx, *, body):
         func = env['func']
         try:
             with redirect_stdout(stdout):
-            ret = await func()
+                ret = await func()
         except Exception as e:
             value = stdout.getvalue()
             err = await ctx.send(f'```py\n{value}{traceback.format_exc()}\n```')
