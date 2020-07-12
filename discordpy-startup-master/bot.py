@@ -83,7 +83,7 @@ async def kt(ctx,kasutamu):
     else:
         await ctx.send("このコマンドは管理者専用です")
 @bot.command(name='eval')
-@commands.has_any_role
+@commands.has_any_role(637850681666961408)
 async def _eval(ctx, *, body):
     """Evaluates python code"""
     blocked_words = ['.delete()', 'os', 'subprocess', 'history()', '("token")', "('token')",
