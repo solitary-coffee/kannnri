@@ -79,7 +79,7 @@ async def on_message(message):
     await bot.process_commands(message)
 
 @bot.command()
-async def kt(ctx,kasutamu):
+async def kt(ctx, *,kasutamu):
     if ctx.message.author.id == ID:    
         await bot.change_presence(activity=discord.Game(name=kasutamu))
     else:
