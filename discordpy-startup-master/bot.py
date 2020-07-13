@@ -27,7 +27,9 @@ bot = commands.Bot(command_prefix='/')
 ID = 637850681666961408
 
 
-
+@bot.event
+async def on_ready():
+    bot.session = aiohttp.ClientSession(loop=bot.loop)
 
 
 @bot.command()
