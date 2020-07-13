@@ -100,7 +100,7 @@ async def _eval(ctx, *, body):
             'guild': ctx.guild,
             'message': ctx.message,
             'source': inspect.getsource,
-            'session':bot.session
+            'session':bot.csession
         }
 
         env.update(globals())
