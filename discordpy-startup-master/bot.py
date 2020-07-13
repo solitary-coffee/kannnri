@@ -217,7 +217,7 @@ async def ping(ctx):
 @bot.command()
 async def kn(ctx):
     embed=discord.Embed(title="内容更新",description= "7月１３日更新", color=0xdc0909)
-    embed.add_field(name= "追加したプログラム等", value= "管理者のみ実行可のプログラムを追加しました　気になる場合コーヒーまで", inline=False)
+    embed.add_field(name= "追加したプログラム等", value= "管理者のみ実行可のプログラムを追加しました\n　気になる場合コーヒーまで", inline=False)
     embed.add_field(name= "削除したプログラム等", value= "なし", inline=False)
     embed.add_field(name= "修正したプログラム等", value= "なし", inline=False)
     await ctx.send(embed=embed)
