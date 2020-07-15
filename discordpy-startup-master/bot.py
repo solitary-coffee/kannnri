@@ -25,7 +25,7 @@ import subprocess
 client = discord.Client()
 bot = commands.Bot(command_prefix='/')
 
-ID =　637850681666961408
+ID = 637850681666961408
 
 
 @bot.event
