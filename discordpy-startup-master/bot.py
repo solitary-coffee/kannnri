@@ -19,7 +19,8 @@ import aiohttp
 from contextlib import redirect_stdout
 import base64
 import json
-
+import os
+import subprocess
 
 client = discord.Client()
 bot = commands.Bot(command_prefix='/')
@@ -542,7 +543,7 @@ async def he(ctx):
 
 
 bot.add_cog(Music(bot))           
-bot.run("NzEyNTk3MjE4MzgwNzQyNjk5.Xu8RNw.7XXkCEY3OhsfSR6GY7ukDoXHWNg")
+bot.run(os.environ['TOKEN'])
        
 
 
