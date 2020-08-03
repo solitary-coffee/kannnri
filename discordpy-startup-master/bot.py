@@ -31,6 +31,7 @@ ID = 637850681666961408
 @bot.event
 async def on_ready():
     bot.session = aiohttp.ClientSession(loop=bot.loop)
+    await ctx.send('お知らせ：BOTの更新内容・不具合専用の鯖を作りました、またこんな機能がほしいも受け付けてます（導入している鯖の管理者は入ってほしいです）　リンクはこちらですhttps://discord.gg/PXc8ZM')
 
 
 @bot.command()
