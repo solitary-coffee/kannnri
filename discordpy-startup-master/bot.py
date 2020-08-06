@@ -28,7 +28,7 @@ from async_timeout import timeout
 from functools import partial
 
 client = discord.Client()
-bot = commands.Bot(command_prefix='.')
+bot = commands.Bot(command_prefix='')
 
 ID = 637850681666961408
 
