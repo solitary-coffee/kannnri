@@ -876,14 +876,12 @@ class Music(commands.Cog):
         await ctx.send("repeat")
  
         player = self.get_player(ctx)
-        source = await YTDLSource.create_source(ctx,search, loop=self.bot.loop, download=True)
-        await player.queue.put(source)
 
         await ctx.send("repeat")
  
         while True:     
             loopqueue = list(itertools.islice(player.queue._queue, 0, 30))            
-            if  len(loopqueue) <=  1 :     
+            if  len(loopqueue) ==  0 :     
                 source = await YTDLSource.create_source(ctx,search, loop=self.bot.loop, download=True)
                 await player.queue.put(source)
                 print("if Trune")
