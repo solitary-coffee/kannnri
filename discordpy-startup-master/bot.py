@@ -30,6 +30,8 @@ import asyncio
 import itertools
 import traceback
 from youtube_dl.utils import lookup_unit_table
+import random
+import playlist
 
 client = discord.Client()
 bot = commands.Bot(command_prefix='/')
@@ -240,9 +242,9 @@ async def ping(ctx):
 @bot.command()
 async def kn(ctx):
     embed=discord.Embed(title="内容更新",description= "8月6日更新", color=0xdc0909)
-    embed.add_field(name= "追加したプログラム等", value= "新音楽機能を追加", inline=False)
-    embed.add_field(name= "削除したプログラム等", value= "旧音楽機能を削除", inline=False)
-    embed.add_field(name= "修正したプログラム等", value= "コマンドミス", inline=False)
+    embed.add_field(name= "追加したプログラム等", value= "リピート・シャッフル機能", inline=False)
+    embed.add_field(name= "削除したプログラム等", value= "None", inline=False)
+    embed.add_field(name= "修正したプログラム等", value= "None", inline=False)
     await ctx.send(embed=embed)
 
 
@@ -407,7 +409,7 @@ async def se(ctx,*,ss):
 
 @bot.command()
 async def he(ctx):
-    embed=discord.Embed(title=" 管理BOTのヘルプです",description= "コマンドの説明", color=0xdc0909)
+    embed=discord.Embed(title=" 管理BOTのヘルプ[1]です",description= "基本コマンドの説明", color=0xdc0909)
     embed.add_field(name= "```/he```", value= "これです", inline=False)
     embed.add_field(name= "```/r [ユーザーID]```", value= "ユーザーのIDをいれてこの指定したIDについているロールを表示します", inline=False)
     embed.add_field(name= "```/j [ユーザーID]```", value= "ユーザーのIDをいれてこの指定したIDがこのサーバーに入室した日時を表示します", inline=False)
@@ -423,12 +425,13 @@ async def he(ctx):
     embed.add_field(name= "```/dm [送る言葉]```", value= "BOT開発者にDMを送ることができます（常識は守るように", inline=False)
     embed.add_field(name= "```/newch [チャンネル名]```", value= "サーバー管理者のみ利用可能　新しくチャンネルを作ることができます", inline=False)
     embed.add_field(name= "```/delch [チャンネル名]```", value= "サーバー管理者のみ利用可能　チャンネルを削除できます", inline=False)
+    embed.add_field(name= "その他情報", value= "``` ```", inline=False)
     embed.add_field(name= "**音楽機能**", value= "別枠です　コマンド　/muhe", inline=False)
     await ctx.send(embed=embed)
 
 @bot.command()
 async def muhe(ctx):
-    embed=discord.Embed(title=" 管理BOTのヘルプです",description= "コマンドの説明", color=0xdc0909)
+    embed=discord.Embed(title=" 管理BOTのヘルプ[2]です",description= "音楽コマンドの説明", color=0xdc0909)
     embed.add_field(name= "```/play [URL・キーワード]```", value= "　youtubeから再生します \n　キーワードは検索し一番上のを再生します", inline=False)
     embed.add_field(name= "```/pause```", value= "一時停止します", inline=False)
     embed.add_field(name= "```/resume```", value= "一時停止から再生します", inline=False)
@@ -437,13 +440,11 @@ async def muhe(ctx):
     embed.add_field(name= "```/np```", value= "再生している曲名・再生者を表示します", inline=False)
     embed.add_field(name= "```/vol```", value= "音量を調節できます（上げすぎると音割れします）", inline=False)
     embed.add_field(name= "```/stop```", value= "止まります＆BOTが抜けます", inline=False)
+    embed.add_field(name= "```/loop[URL]```", value= "指定したURLをリピートします（複数可）  ", inline=False)
+    embed.add_field(name= "```/mix```", value= "シャッフルします（playlistはしません）", inline=False)
     embed.add_field(name= "```/se [キーワード]```", value= "５曲　検索します", inline=False)
    
     await ctx.send(embed=embed)
-
-
-
-
 
 ytdlopts = {
     'format': 'bestaudio/best',
@@ -506,6 +507,7 @@ class YTDLSource(discord.PCMVolumeTransformer):
 
         if 'entries' in data:
             # take first item from a playlist
+            
             data = data['entries'][0]
 
         await ctx.send(f'```ini\n[Added {data["title"]} to the Queue.]\n```', delete_after=10)
@@ -575,6 +577,16 @@ class MusicPlayer:
     def entries(self) -> None:
         print("ループ設定")
         return list(self.queue._queue)  # type: ignore  # false-positive
+
+        
+        
+ 
+
+                
+        
+                
+          #これいるのか・？ｗ
+
         
 
     async def player_loop(self):
@@ -611,6 +623,11 @@ class MusicPlayer:
                 
 
             # Make sure the FFmpeg process is cleaned up.
+           
+           
+    
+              
+              
             
 
 
@@ -732,8 +749,8 @@ class Music(commands.Cog):
         # If download is False, source will be a dict which will be used later to regather the stream.
         # If download is True, source will be a discord.FFmpegPCMAudio with a VolumeTransformer.
         source = await YTDLSource.create_source(ctx, search, loop=self.bot.loop, download=True)
-
         await player.queue.put(source)
+        
 
     @commands.command(name='pause')
     async def pause_(self, ctx):
@@ -873,15 +890,13 @@ class Music(commands.Cog):
             await ctx.invoke(self.connect_)
         
 
-        await ctx.send("repeat")
+        await ctx.send("リピートします")
  
-        player = self.get_player(ctx)
 
-        await ctx.send("repeat")
  
-        while True:     
+        while True:  
             loopqueue = list(itertools.islice(player.queue._queue, 0, 30))            
-            if  len(loopqueue) ==  0 :     
+            if  len(loopqueue) <=  1 :     
                 source = await YTDLSource.create_source(ctx,search, loop=self.bot.loop, download=True)
                 await player.queue.put(source)
                 print("if Trune")
@@ -890,14 +905,60 @@ class Music(commands.Cog):
             else:
                 print("else")
                 await asyncio.sleep(10)
-                pass 
+ 
+    
 
+    @commands.command(name="mix")
+    async def shuffle_(self, ctx):
+        """Shuffle the current queue.
+        Aliases
+        ---------
+            mix
+        Examples
+        ----------
+        <prefix>shuffle
+            {ctx.prefix}shuffle
+            {ctx.prefix}mix
+        """
+        player = self.get_player(ctx)
+        vc = ctx.voice_client
+        loopqueue = list(itertools.islice(player.queue._queue, 0, 30))    
+        if not vc or not vc.is_connected():
+            return await ctx.send('ボイスチャットに入っていません', delete_after=20)
+
+      
+            
+
+        await self.do_shuffle(ctx)
+        print("mix ok")
+
+        await ctx.send("シャッフルします（playlistはシャッフルされないです）")
+
+
+
+    async def do_shuffle(self, ctx):
+        player = self.get_player(ctx)
+        random.shuffle(player.queue._queue)
+
+    @commands.command(name='pl')
+    async def playlist_(self, ctx,):
+        await ctx.trigger_typing()
+
+        vc = ctx.voice_client
+
+        if not vc:
+            await ctx.invoke(self.connect_)
+
+        player = self.get_player(ctx)
        
 
+        for search in  playlist.playlist:
+        # If download is False, source will be a dict which will be used later to regather the stream.
+        # If download is True, source will be a discord.FFmpegPCMAudio with a VolumeTransformer.
+            source = await YTDLSource.create_source(ctx, search, loop=self.bot.loop, download=True)
 
-
-
-
+            await player.queue.put(source)
+       
 
 
 bot.add_cog(Music(bot))
