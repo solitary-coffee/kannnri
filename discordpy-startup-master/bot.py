@@ -440,11 +440,17 @@ async def muhe(ctx):
     embed.add_field(name= "```/np```", value= "再生している曲名・再生者を表示します", inline=False)
     embed.add_field(name= "```/vol```", value= "音量を調節できます（上げすぎると音割れします）", inline=False)
     embed.add_field(name= "```/stop```", value= "止まります＆BOTが抜けます", inline=False)
-    embed.add_field(name= "```/loop[URL]```", value= "指定したURLをリピートします（複数可）  ", inline=False)
+    embed.add_field(name= "```/loop```", value= "コマンドを実行した現在のリストをリピートします ", inline=False)
+    embed.add_field(name= "```/loopend```", value= "リピートを終了します", inline=False)    
     embed.add_field(name= "```/mix```", value= "シャッフルします（playlistはしません）", inline=False)
     embed.add_field(name= "```/se [キーワード]```", value= "５曲　検索します", inline=False)
    
     await ctx.send(embed=embed)
+loopka = 0
+
+client = discord.Client()
+
+bot = commands.Bot(command_prefix = '.')
 
 ytdlopts = {
     'format': 'bestaudio/best',
@@ -486,6 +492,7 @@ class YTDLSource(discord.PCMVolumeTransformer):
 
         self.title = data.get('title')
         self.web_url = data.get('webpage_url')
+        self.duration = data.get('duration')
 
         # YTDL info dicts (data) have other useful information you might want
         # https://github.com/rg3/youtube-dl/blob/master/README.md
@@ -507,10 +514,9 @@ class YTDLSource(discord.PCMVolumeTransformer):
 
         if 'entries' in data:
             # take first item from a playlist
-            
             data = data['entries'][0]
 
-        await ctx.send(f'```ini\n[Added {data["title"]} to the Queue.]\n```', delete_after=10)
+        await ctx.send(f'```ini\n[ {data["title"]}がリストに入りました.]\n```', delete_after=10)
         
 
         if download:
@@ -577,16 +583,6 @@ class MusicPlayer:
     def entries(self) -> None:
         print("ループ設定")
         return list(self.queue._queue)  # type: ignore  # false-positive
-
-        
-        
- 
-
-                
-        
-                
-          #これいるのか・？ｗ
-
         
 
     async def player_loop(self):
@@ -616,18 +612,13 @@ class MusicPlayer:
 
             self._guild.voice_client.play(source , after=lambda _: self.bot.loop.call_soon_threadsafe(self.next.set))
             self.np = await self._channel.send(f'再生：  `{source.title}` \n 再生者： '
-                                               f'`{source.requester}`')
+                                               f'`{source.requester}`', delete_after=10)
            
             await self.next.wait()
     
                 
 
             # Make sure the FFmpeg process is cleaned up.
-           
-           
-    
-              
-              
             
 
 
@@ -725,7 +716,7 @@ class Music(commands.Cog):
             except asyncio.TimeoutError:
                 raise VoiceConnectionError(f'Connecting to channel: <{channel}> timed out.')
 
-        await ctx.send(f'Connected to: **{channel}**')
+        await ctx.send(f'再生するボイスチャット: **{channel}**')
 
     @commands.command(name='play', aliases=['sing'])
     async def play_(self, ctx, *, search:str):
@@ -749,8 +740,8 @@ class Music(commands.Cog):
         # If download is False, source will be a dict which will be used later to regather the stream.
         # If download is True, source will be a discord.FFmpegPCMAudio with a VolumeTransformer.
         source = await YTDLSource.create_source(ctx, search, loop=self.bot.loop, download=True)
+
         await player.queue.put(source)
-        
 
     @commands.command(name='pause')
     async def pause_(self, ctx):
@@ -782,6 +773,8 @@ class Music(commands.Cog):
     async def skip_(self, ctx):
         """Skip the song."""
         vc = ctx.voice_client
+       
+
 
         if not vc or not vc.is_connected():
             return await ctx.send('ボイスチャットに入っていません', delete_after=20)
@@ -807,10 +800,10 @@ class Music(commands.Cog):
             return await ctx.send('曲リストには何もはいってません', delete_after=20)
 
         # Grab up to 5 entries from the queue...
-        upcoming = list(itertools.islice(player.queue._queue, 0, 30))
+        upcoming = list(itertools.islice(player.queue._queue, 0, 30)) 
 
-        fmt = '\n'.join(f'**`{_["title"]}`**' for _ in upcoming)
-        embed = discord.Embed(title=f'Upcoming - Next {len(upcoming)}', description=fmt)
+        fmt = '\n'.join(f'**`{_["title"]}`**\n URL: {_["web_url"]} ' for _ in upcoming)
+        embed = discord.Embed(title=f'リスト -  {len(upcoming)}曲', description=fmt)
 
         await ctx.send(embed=embed)
 
@@ -858,7 +851,7 @@ class Music(commands.Cog):
             vc.source.volume = vol / 100
 
         player.volume = vol / 100
-        await ctx.send(f'**`{ctx.author}`**: Set the volume to **{vol}%**')
+        await ctx.send(f'**`{ctx.author}`**: 音量を変更 **{vol}%**')
 
     @commands.command(name='stop')
     async def stop_(self, ctx):
@@ -873,7 +866,8 @@ class Music(commands.Cog):
 
         await self.cleanup(ctx.guild)
     @commands.command(name="loop")
-    async def repeat_(self, ctx,*,search):
+    async def repeat_(self, ctx):
+        global loopka
         """Repeat the currently playing song.
         Examples
         ----------
@@ -885,60 +879,43 @@ class Music(commands.Cog):
         await ctx.trigger_typing()
 
         vc = ctx.voice_client
+        loopka += 1
 
         if not vc:
             await ctx.invoke(self.connect_)
-        
 
-        await ctx.send("リピートします")
- 
+        upcoming = list(itertools.islice(player.queue._queue, 0, 30)) 
+        fmt = list(f' {_["web_url"]} ' for _ in upcoming)
+        print(fmt)
 
- 
-        while True:  
-            loopqueue = list(itertools.islice(player.queue._queue, 0, 30))            
-            if  len(loopqueue) <=  1 :     
-                source = await YTDLSource.create_source(ctx,search, loop=self.bot.loop, download=True)
-                await player.queue.put(source)
-                print("if Trune")
-                await asyncio.sleep(10) 
+        await ctx.send("repeat")
 
-            else:
-                print("else")
-                await asyncio.sleep(10)
- 
-    
-
-    @commands.command(name="mix")
-    async def shuffle_(self, ctx):
-        """Shuffle the current queue.
-        Aliases
-        ---------
-            mix
-        Examples
-        ----------
-        <prefix>shuffle
-            {ctx.prefix}shuffle
-            {ctx.prefix}mix
-        """
-        player = self.get_player(ctx)
         vc = ctx.voice_client
-        loopqueue = list(itertools.islice(player.queue._queue, 0, 30))    
-        if not vc or not vc.is_connected():
-            return await ctx.send('ボイスチャットに入っていません', delete_after=20)
+        while loopka == 1: 
+            loopke = list(itertools.islice(player.queue._queue, 0, 30)) 
+            print(upcoming)
+            if len(loopke) <=  1 :   
+                for search in fmt :
+                    source = await YTDLSource.create_source(ctx,search, loop=self.bot.loop, download=True)
+                    await player.queue.put(source)
+                    print("if Trune")
+            print("loop スルー")
+            await asyncio.sleep(10)
+        else:
+            print("loop終了")
 
-      
-            
+         
 
-        await self.do_shuffle(ctx)
-        print("mix ok")
-
-        await ctx.send("シャッフルします（playlistはシャッフルされないです）")
-
-
-
-    async def do_shuffle(self, ctx):
-        player = self.get_player(ctx)
-        random.shuffle(player.queue._queue)
+    @commands.command(name="loopend")
+    async def repeatend_(self, ctx):
+        global loopka
+        if loopka == 1:
+                   
+            loopka -= 1 
+            await ctx.send("loopを終了します")
+        else:
+            await ctx.send("リピートされていません")
+             
 
     @commands.command(name='pl')
     async def playlist_(self, ctx,):
