@@ -856,7 +856,9 @@ class Music(commands.Cog):
         !Warning!
             This will destroy the player assigned to your guild, also deleting any queued songs and settings.
         """
+        global loopka
         vc = ctx.voice_client
+        loopka = 0
 
         if not vc or not vc.is_connected():
             return await ctx.send('ボイスチャットに入っていません', delete_after=20)
@@ -876,7 +878,7 @@ class Music(commands.Cog):
         await ctx.trigger_typing()
 
         vc = ctx.voice_client
-        loopka += 1
+        loopka = 1
 
         if not vc:
             await ctx.invoke(self.connect_)
@@ -908,7 +910,7 @@ class Music(commands.Cog):
         global loopka
         if loopka == 1:
                    
-            loopka -= 1 
+            loopka = 0 
             await ctx.send("loopを終了します")
         else:
             await ctx.send("リピートされていません")
