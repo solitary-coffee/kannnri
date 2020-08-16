@@ -884,7 +884,7 @@ class Music(commands.Cog):
             await ctx.invoke(self.connect_)
 
         upcoming = list(itertools.islice(player.queue._queue, 0, 30)) 
-        fmt = list(f' {_["web_url"]} ' for _ in upcoming)
+        fmt = list(f' {_["title"]} ' for _ in upcoming)
         print(fmt)
 
         await ctx.send("repeat")
