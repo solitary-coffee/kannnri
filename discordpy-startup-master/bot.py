@@ -448,9 +448,6 @@ async def muhe(ctx):
     await ctx.send(embed=embed)
 loopka = 0
 
-client = discord.Client()
-
-bot = commands.Bot(command_prefix = '.')
 
 ytdlopts = {
     'format': 'bestaudio/best',
