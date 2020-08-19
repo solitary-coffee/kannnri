@@ -38,6 +38,17 @@ bot = commands.Bot(command_prefix='/')
 
 ID = 637850681666961408
 
+kai = {
+    "白米":1,
+    "焼鮭とカボス":2, 
+    "ホットドック":4,
+    "サーロインステーキ":14,
+    "高級海鮮コース":400,
+    "板チョコ":1,
+    "ショートケーキ":3,
+    "ハンバーガー":2
+}
+
 
 @bot.event
 async def on_ready():
@@ -238,7 +249,19 @@ async def ping(ctx):
     embed.add_field(name="平均:" , value=keka , inline=False)
     await ctx.send(embed=embed)
 
-
+@bot.command()
+async def tm(ctx, tm):
+    if ctx.message.channel.id == 738407992281530411:
+        dm = bot.get_user(716754062879490111)
+        for word in kai:
+            if word in ctx.message.content:
+                await ctx.send(f"{tm}を購入しました　代金は{kai[tm]}$")
+        embed=discord.Embed(title= f"{ctx.message.author.name}が購入しました",description= "サーバからです" , color=0x3498db)
+        embed.add_field(name= f"買ったもの：{tm}" , value=  f"代金：{list[tm]}", inline=False)
+        await dm.send(embed=embed)
+    else:
+        await ctx.send("ここで使えません")
+    
 @bot.command()
 async def kn(ctx):
     embed=discord.Embed(title="内容更新",description= "8月6日更新", color=0xdc0909)
