@@ -907,8 +907,9 @@ class Music(commands.Cog):
             await ctx.invoke(self.connect_)
 
         upcoming = list(itertools.islice(player.queue._queue, 0, 30)) 
-        fmt = list(f' {_["title"]} ' for _ in upcoming)
-        print(fmt)
+        fmt = list(f' {_["web_url"]} ' for _ in upcoming)
+        fmt.append(vc.source.web_url)
+        print(fmt) 
 
         await ctx.send("repeat")
 
@@ -931,16 +932,14 @@ class Music(commands.Cog):
     @commands.command(name="loopend")
     async def repeatend_(self, ctx):
         global loopka
-        if loopka == 1:
-                   
-            loopka = 0 
-            await ctx.send("loopを終了します")
-        else:
-            await ctx.send("リピートされていません")
-             
+        
+        loopka = 0 
+
+
+        await ctx.send("loopを終了します")
 
     @commands.command(name='pl')
-    async def playlist_(self, ctx,):
+    async def playlist_(self, ctx,plli):
         await ctx.trigger_typing()
 
         vc = ctx.voice_client
@@ -949,15 +948,55 @@ class Music(commands.Cog):
             await ctx.invoke(self.connect_)
 
         player = self.get_player(ctx)
-       
+        if 'bokaro' in plli :
+            for search in  playlist.bokaro:
+                source = await YTDLSource.create_source(ctx, search, loop=self.bot.loop, download=True)
 
-        for search in  playlist.playlist:
-        # If download is False, source will be a dict which will be used later to regather the stream.
-        # If download is True, source will be a discord.FFmpegPCMAudio with a VolumeTransformer.
-            source = await YTDLSource.create_source(ctx, search, loop=self.bot.loop, download=True)
+                await player.queue.put(source)
+    
+  
+        elif 'sui' in plli :
+            for search in  playlist.sui:
+                source = await YTDLSource.create_source(ctx, search, loop=self.bot.loop, download=True)
 
-            await player.queue.put(source)
-       
+                await player.queue.put(source)
+
+        elif 'perc' in plli :
+            for search in  playlist.bokaro:
+                source = await YTDLSource.create_source(ctx, search, loop=self.bot.loop, download=True)
+
+                await player.queue.put(source)
+        else:
+            await ctx.send(f"{plli} の名前のplaylistが見つかりませんでした")
+
+    @commands.command(name="shuffle", aliases=["mix"])
+    async def shuffle_(self, ctx):
+        """Shuffle the current queue.
+        Aliases
+        ---------
+            mix
+        Examples
+        ----------
+        <prefix>shuffle
+            {ctx.prefix}shuffle
+            {ctx.prefix}mix
+        """
+    
+
+        vc = ctx.voice_client
+
+        if not vc:
+            await ctx.invoke(self.connect_)
+
+
+          
+        await self.do_shuffle(ctx)
+
+        await ctx.send("シャッフルします")
+    async def do_shuffle(self, ctx):
+        player = self.get_player(ctx)
+        random.shuffle(player.queue._queue)
+
 
 
 bot.add_cog(Music(bot))
