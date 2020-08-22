@@ -65,14 +65,7 @@ async def on_ready(self):
         await asyncio.sleep(5)
         await bot.change_presence(activity=discord.Game(name="音楽機能を大量に追加しました　詳細は/muhe"))
         await asyncio.sleep(15)
-        vc = self.voice_client
-        if vc.is_playing():
-            
-            await bot.change_presence(activity=discord.Game(name=vc.source.title))
-            await asyncio.sleep(5)
-        else:
-            pass
-   
+
 
 
 @bot.command()
