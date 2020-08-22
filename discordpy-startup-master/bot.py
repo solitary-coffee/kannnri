@@ -800,7 +800,7 @@ class Music(commands.Cog):
 
         await player.queue.put(source)
 
-    @commands.command(name='nplay', aliases=['sing'])
+    @commands.command(name='nplay', aliases=['nsing'])
     async def nplay_(self, ctx, *, search:str):
         """Request a song and add it to the queue.
         This command attempts to join a valid voice channel if the bot is not already in one.
