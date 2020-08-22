@@ -261,6 +261,44 @@ async def tm(ctx, tm):
         await dm.send(embed=embed)
     else:
         await ctx.send("ここで使えません")
+yu = {
+    "空輸":2,
+    "船":5,
+    "トラック":6,
+}
+oka = {
+    "空輸":5000,
+    "船":500,
+    "トラック":2000,
+}
+
+oka = {
+    "木材":10,
+    "石材":40,
+    "石油":50,
+    "天然ガス":50,
+    "二酸化チタン":60,
+    "鉄骨":100,
+    "コンクリート":200,
+    "現金":"時価です、管理者に確認してください",
+
+}
+
+
+
+
+@bot.command()
+async def kau(ctx,mono,kosuu,yusou,kaisya):
+    if ctx.message.channel.id == 738407992281530411:
+        await ctx.send(f"{mono}を{kosuu}個を{yusou}で{kaisya}に送ります")
+        zai = yu[yusou] * 3060
+        await ctx.send(f"材料費は　{oka[mono]} ＄です")
+        await ctx.send("出荷費は・・\n それぐらい自分で計算しろｗ　\n (現在ＢＯＴは反抗期です すいません")
+        await ctx.send(f"輸送時間は　{yu[yusou]}時間です（予想です遅れる場合もあります")
+        await asyncio.sleep(zai)
+        await ctx.send(f"{ctx.message.author.mention}さん　荷物が届いてます") 
+     else:
+        await ctx.send("ここで使えません")
     
 @bot.command()
 async def kn(ctx):
