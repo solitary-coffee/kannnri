@@ -584,7 +584,6 @@ class YTDLSource(discord.PCMVolumeTransformer):
         return cls(discord.FFmpegPCMAudio(source), data=data, requester=ctx.author)
         
         print("DL１終わり")
-     
 
     @classmethod
     async def regather_stream(cls, data, *, loop):
@@ -800,30 +799,6 @@ class Music(commands.Cog):
 
         await player.queue.put(source)
 
-    @commands.command(name='nplay', aliases=['nsing'])
-    async def nplay_(self, ctx, *, search:str):
-        """Request a song and add it to the queue.
-        This command attempts to join a valid voice channel if the bot is not already in one.
-        Uses YTDL to automatically search and retrieve a song.
-        Parameters
-        ------------
-        search: str [Required]
-            The song to search and retrieve using YTDL. This could be a simple search, an ID or URL.
-        """
-        await ctx.trigger_typing()
-
-        vc = ctx.voice_client
-
-        if not vc:
-            await ctx.invoke(self.connect_)
-
-        player = self.get_player(ctx)
-
-        # If download is False, source will be a dict which will be used later to regather the stream.
-        # If download is True, source will be a discord.FFmpegPCMAudio with a VolumeTransformer.
-        source = await YTDLSource.create_source(ctx, search, loop=self.bot.loop, download=False)
-
-        await player.queue.put(source)
     @commands.command(name='pause')
     async def pause_(self, ctx):
         """Pause the currently playing song."""
@@ -940,9 +915,7 @@ class Music(commands.Cog):
         !Warning!
             This will destroy the player assigned to your guild, also deleting any queued songs and settings.
         """
-        global loopka
         vc = ctx.voice_client
-        loopka = 0
 
         if not vc or not vc.is_connected():
             return await ctx.send('ボイスチャットに入っていません', delete_after=20)
