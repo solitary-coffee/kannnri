@@ -297,8 +297,7 @@ async def kau(ctx,mono,kosuu,yusou,kaisya):
         await ctx.send(f"輸送時間は　{yu[yusou]}時間です（予想です遅れる場合もあります")
         await asyncio.sleep(zai)
         await ctx.send(f"{ctx.message.author.mention}さん　荷物が届いてます") 
-     else:
-        await ctx.send("ここで使えません")
+
     
 @bot.command()
 async def kn(ctx):
