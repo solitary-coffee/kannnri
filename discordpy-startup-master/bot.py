@@ -89,7 +89,7 @@ async def dm_error(ctx, error):
 
 @bot.event
 async def on_message(message):  
-    if message.channel.id == 719307017331802173:
+    if message.guild.id== 727850593330397265:
         print("ok")
     elif message.channel.id == 713588195555541033:
         print("ok")
