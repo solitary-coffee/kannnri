@@ -51,7 +51,7 @@ kai = {
 
 
 @bot.event
-async def on_ready():
+async def on_ready(self):
     bot.session = aiohttp.ClientSession(loop=bot.loop)
     while True:
 
@@ -65,7 +65,7 @@ async def on_ready():
         await asyncio.sleep(5)
         await bot.change_presence(activity=discord.Game(name="音楽機能を大量に追加しました　詳細は/muhe"))
         await asyncio.sleep(15)
-        vc = bot.voice_client
+        vc = self.voice_client
         if vc.is_playing():
             
             await bot.change_presence(activity=discord.Game(name=vc.source.title))
