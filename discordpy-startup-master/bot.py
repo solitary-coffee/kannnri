@@ -91,19 +91,7 @@ async def dm_error(ctx, error):
 
 @bot.event
 async def on_message(message):  
-    if message.guild.id== 727850593330397265:
-        print("ok")
-    elif message.channel.id == 713588195555541033:
-        print("ok")
-    elif message.channel.id == 721837476666409010:
-       
-        print("ok")
-        
-    if message.author.bot:
-        return
-#原型
-
-    elif message.content.startswith('!trans'):
+    if message.content.startswith('!trans'):
         say = message.content
         say = say[7:]
         if say.find('-') == -1:
@@ -137,6 +125,13 @@ async def on_message(message):
         detect = translator.detect(s)
         m = 'この文字列の言語はたぶん ' + detect.lang + ' です。'
         await message.channel.send(m)
+    elif message.guild.id== 727850593330397265:
+        print("ok")
+    elif message.channel.id == 713588195555541033:
+        print("ok")
+    elif message.channel.id == 721837476666409010:
+       
+        print("ok")
     else:       
         for word in rog.list:
             if message.author.bot:
