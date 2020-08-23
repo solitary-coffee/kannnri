@@ -32,6 +32,8 @@ import traceback
 from youtube_dl.utils import lookup_unit_table
 import random
 import playlist
+from googletrans import Translator
+translator = Translator()
 
 client = discord.Client()
 bot = commands.Bot(command_prefix='/')
