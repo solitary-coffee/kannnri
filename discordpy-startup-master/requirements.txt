@@ -4,3 +4,4 @@ ffmpeg-python
 youtube-dl
 psutil
 google-api-python-client
+googletrans
