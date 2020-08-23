@@ -53,7 +53,7 @@ kai = {
 
 
 @bot.event
-async def on_ready(self):
+async def on_ready():
     bot.session = aiohttp.ClientSession(loop=bot.loop)
     while True:
 
