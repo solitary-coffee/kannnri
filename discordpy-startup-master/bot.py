@@ -94,7 +94,7 @@ async def on_message(message):
     if message.author.bot:
         # もし、送信者がbotなら無視する
         return
-    GLOBAL_CH_NAME = "" # グローバルチャットのチャンネル名
+    GLOBAL_CH_NAME = "am-gu" # グローバルチャットのチャンネル名
 
     if message.channel.name == GLOBAL_CH_NAME:
         # hoge-globalの名前をもつチャンネルに投稿されたので、メッセージを転送する
