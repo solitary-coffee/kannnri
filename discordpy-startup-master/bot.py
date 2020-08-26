@@ -106,7 +106,7 @@ async def on_message(message):
         # channelsはbotの取得できるチャンネルのイテレーター
         # global_channelsは hoge-global の名前を持つチャンネルのリスト
 
-        embed = discord.Embed(title="上が送信者下が内容です",
+        embed = discord.Embed(title=message.guild.id,
             description=message.content, color=0x00bfff)
 
         embed.set_author(name=message.author.display_name, 
