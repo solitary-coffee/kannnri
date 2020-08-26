@@ -65,7 +65,7 @@ async def on_ready():
         await asyncio.sleep(5)
         await bot.change_presence(activity=discord.Game(name="更新内容　/ku"))
         await asyncio.sleep(5)
-        await bot.change_presence(activity=discord.Game(name="音楽機能を大量に追加しました　詳細は/muhe"))
+        await bot.change_presence(activity=discord.Game(name="グローバルに接続はチャンネル名をcoffee-globalで接続可"))
         await asyncio.sleep(15)
 
 
