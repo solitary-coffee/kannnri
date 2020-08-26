@@ -117,7 +117,7 @@ async def on_message(message):
             # メッセージを埋め込み形式で転送
             await channel.send(embed=embed)
     
-    if message.guild.id = 727850593330397265:      
+    if message.guild.id != 727850593330397265:      
         for word in rog.list:
             if message.author.bot:
                 return
