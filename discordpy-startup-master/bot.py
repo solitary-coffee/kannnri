@@ -104,7 +104,7 @@ async def on_message(message):
         # channelsはbotの取得できるチャンネルのイテレーター
         # global_channelsは hoge-global の名前を持つチャンネルのリスト
 
-        embed = discord.Embed(title="```↑送信者　↓　内容```",
+        embed = discord.Embed(title="hoge-global",
             description=message.content, color=0x00bfff)
 
         embed.set_author(name=message.author.display_name, 
@@ -117,7 +117,7 @@ async def on_message(message):
             # メッセージを埋め込み形式で転送
             await channel.send(embed=embed)
     
-    if message.guild.id != 727850593330397265:      
+    elif message.guild.id != 727850593330397265:      
         for word in rog.list:
             if message.author.bot:
                 return
