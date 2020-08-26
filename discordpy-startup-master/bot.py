@@ -93,7 +93,8 @@ async def dm_error(ctx, error):
 async def on_message(message):      
 
     GLOBAL_CH_NAME = "am-go" # グローバルチャットのチャンネル名
-
+    if message.author.bot:
+        return
     if message.channel.name == GLOBAL_CH_NAME:
         # hoge-globalの名前をもつチャンネルに投稿されたので、メッセージを転送する
 
