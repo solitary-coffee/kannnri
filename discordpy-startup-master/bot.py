@@ -88,13 +88,13 @@ async def dm_error(ctx, error):
         await ctx.message.delete()
         await ctx.send('現在クールタイム中です %.2f秒後にもう一度やり直してください' % error.retry_after)
 
+
 @bot.event
 async def on_message(message):      
-    if message.guild.id== 727850593330397265:
-        print("ok")
+
     GLOBAL_CH_NAME = "am-go" # グローバルチャットのチャンネル名
 
-    elif message.channel.name == GLOBAL_CH_NAME:
+    if message.channel.name == GLOBAL_CH_NAME:
         # hoge-globalの名前をもつチャンネルに投稿されたので、メッセージを転送する
 
         await message.delete() # 元のメッセージは削除しておく
@@ -116,8 +116,8 @@ async def on_message(message):
         for channel in global_channels:
             # メッセージを埋め込み形式で転送
             await channel.send(embed=embed)
-
-    else:               
+    
+    if message.guild.id== 727850593330397265:      
         for word in rog.list:
             if message.author.bot:
                 return
@@ -135,7 +135,6 @@ async def on_message(message):
 
                 await message.channel.send(embed=embed)
     await bot.process_commands(message)
-
 @bot.command()
 async def kt(ctx, *,kasutamu):
     if ctx.message.author.id == ID:    
