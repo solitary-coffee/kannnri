@@ -276,7 +276,7 @@ async def ping(ctx):
 
 @bot.command()
 async def tm(ctx, tm):
-    if ctx.message.channel.id == 738407992281530411:
+    if ctx.message.guild.id == 727850593330397265:
         dm = bot.get_user(716754062879490111)
         for word in kai:
             if word in ctx.message.content:
@@ -314,7 +314,7 @@ oka = {
 
 @bot.command()
 async def kau(ctx,mono,kosuu,yusou,kaisya):
-    if ctx.message.channel.id == 738407992281530411:
+    if ctx.message.guild.id == 727850593330397265:
         await ctx.send(f"{mono}を{kosuu}個を{yusou}で{kaisya}に送ります")
         zai = yu[yusou] * 3060
         await ctx.send(f"材料費は　{oka[mono]} ＄です")
