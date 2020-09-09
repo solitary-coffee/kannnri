@@ -62,7 +62,7 @@ ti1 = list()
 ti2 = list()
 pl1n = []
 pl2n = []
-kilist = [721675779200516106,727850593330397265]
+kili = [721675779200516106,727850593330397265]
 
 @bot.event
 async def on_ready():
@@ -372,7 +372,7 @@ async def kau(ctx,mono,kosuu,yusou,kaisya):
         
 @bot.command()
 async def suta(ctx,channel1: discord.VoiceChannel,channel2: discord.VoiceChannel):
-    if ctx.message.guild.id  in kilist:     
+    if ctx.message.guild.id  in kili:     
         global pl1n ,pl2n ,gari1,gari2,ti1,ti2,gali
         def check(m):
             return m.author == ctx.author
