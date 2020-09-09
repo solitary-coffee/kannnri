@@ -62,7 +62,7 @@ ti1 = list()
 ti2 = list()
 pl1n = []
 pl2n = []
-kilist = [704908660274364466,721675779200516106]
+kilist = [721675779200516106,727850593330397265]
 
 @bot.event
 async def on_ready():
