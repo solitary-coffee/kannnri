@@ -71,13 +71,11 @@ async def on_ready():
 
         await bot.change_presence(activity=discord.Game(name="herokuで稼働中"))
         await asyncio.sleep(5)
-        await bot.change_presence(activity=discord.Game(name="更新時間：2020/8/6/21:30"))
+        await bot.change_presence(activity=discord.Game(name="更新時間：2020/9/10/20:38"))
         await asyncio.sleep(5)
         await bot.change_presence(activity=discord.Game(name="ヘルプ表示/help"))
         await asyncio.sleep(5)
-        await bot.change_presence(activity=discord.Game(name="更新内容　/ku"))
-        await asyncio.sleep(5)
-        await bot.change_presence(activity=discord.Game(name="グローバルに接続はチャンネル名をcoffee-globalで接続可"))
+        await bot.change_presence(activity=discord.Game(name="グローバルチャンネル名をcoffee-global"))
         await asyncio.sleep(15)
 
 
