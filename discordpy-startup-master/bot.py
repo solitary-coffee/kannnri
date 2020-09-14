@@ -372,7 +372,7 @@ async def kau(ctx,mono,kosuu,yusou,kaisya):
         
 @bot.command()
 async def suta(ctx,channel1: discord.VoiceChannel,channel2: discord.VoiceChannel):
-    if ctx.message.guild.id  in kili:     
+    if ctx.message.guild.id  in kilist:     
         global pl1n ,pl2n ,gari1,gari2,ti1,ti2,gali
         def check(m):
             return m.author == ctx.author
@@ -417,21 +417,31 @@ async def suta(ctx,channel1: discord.VoiceChannel,channel2: discord.VoiceChannel
             pl1afk = gali[pl1 + "afk"]
             await ctx.send(f"チーム1の{pl1}さんが選択します　[戦闘：1、回復：2]" )
             msg = await bot.wait_for("message", check=check1)
+            pl2 = random.choice(ti2)      
+            pl2hp = gali[pl2 + "hp"]  
             if  msg.content  == str(1):
-                 
-                pl2 = random.choice(ti2)      
-                pl2hp = gali[pl2 + "hp"]  
-                pl2hps =  random.randint(pl1afk-5 , pl1afk+5)
+                  
+                pl2hps =  random.choice([pl1afk-5 ,pl1afk-4,pl1afk-3,pl1afk-2,pl1afk-1,pl1afk,pl1afk+1,pl1afk+2, pl1afk+3,pl1afk+4,  pl1afk+5,0])
                 p2hpg = pl2hp - pl2hps
                 await ctx.send(f"戦闘します 自分の　AFK ：`{pl1afk}` ")
                 await ctx.send(f"攻撃相手は　{pl2}です　相手のＨＰ`{pl2hp}`　")
                 gali.update([(f"{pl2}hp",p2hpg )])
+                
                 if p2hpg <= 0:
                     await ctx.send(f"{pl2} さんは倒されました")
                     pl1n -= 1
-
+                elif pl2hps == 0:
+                    await ctx.send("ミスしました　攻撃量は`0`です")
                 else:    
                     await ctx.send(f"攻撃後のＨＰ　` {p2hpg}`")
+            if  msg.content  == str(2):
+                pl1hp = gali[pl1 + "hp"]  
+                pl1hps =  random.randint(pl1afk-20 , pl1afk-15)
+                p1hpg = pl1hp + pl1hps
+                gali.update([(f"{pl1}hp",p1hpg )])
+                await ctx.send(f"回復完了　[{pl1hp}]→ [{p1hpg}]")
+
+
             def check2(m):
                 return m.author.name == pl2
             pl2 = random.choice(ti2)
@@ -442,7 +452,7 @@ async def suta(ctx,channel1: discord.VoiceChannel,channel2: discord.VoiceChannel
                  
                 pl1 = random.choice(ti1)      
                 pl1hp = gali[pl1 + "hp"]  
-                pl1hps =  random.randint(pl2afk-5 , pl2afk+5)
+                pl1hps =  random.choice([pl2afk-5 ,pl2afk-4,pl2afk-3,pl2afk-2,pl2afk-1,pl2afk,pl2afk+1,pl2afk+2, pl2afk+3,pl2afk+4,  pl2afk+5,0])
                 p1hpg = pl1hp - pl1hps
                 await ctx.send(f"戦闘します 自分の　AFK ：`{pl2afk}` ")
                 await ctx.send(f"攻撃相手は　{pl1}です　相手のＨＰ`{pl1hp}`　")
@@ -450,9 +460,20 @@ async def suta(ctx,channel1: discord.VoiceChannel,channel2: discord.VoiceChannel
                 if p1hpg <= 0:
                     await ctx.send(f"{pl1} さんは倒されました")
                     pl2n -= 1
+                elif pl1hps == 0:
+                    await ctx.send("ミスしました　攻撃量は`0`です")
             
                 else:    
                     await ctx.send(f"攻撃後のＨＰ　` {p1hpg}`")
+            if  msg.content  == str(2):
+                pl2afk = gali[pl2 + "afk"] 
+                pl2hp = gali[pl2 + "hp"]  
+                pl2hps =  random.randint(pl2afk-20 , pl2afk-15)
+       
+                p2hpg = pl2hp + pl2hps
+                gali.update([(f"{pl2}hp",p2hpg )])
+                await ctx.send(f"回復完了　[{pl2hp}]→[{p2hpg}]")
+
         if pl1n > 1:
             await ctx.send("チーム1が全滅させられました　よってチーム2の勝利です")
             gari1 = []
@@ -481,14 +502,10 @@ async def suta(ctx,channel1: discord.VoiceChannel,channel2: discord.VoiceChannel
             pl2n = []
 
 
+
+
     
-@bot.command()
-async def kn(ctx):
-    embed=discord.Embed(title="内容更新",description= "8月6日更新", color=0xdc0909)
-    embed.add_field(name= "追加したプログラム等", value= "リピート・シャッフル機能", inline=False)
-    embed.add_field(name= "削除したプログラム等", value= "None", inline=False)
-    embed.add_field(name= "修正したプログラム等", value= "None", inline=False)
-    await ctx.send(embed=embed)
+
 
 
 class MemberRoles(commands.MemberConverter):
