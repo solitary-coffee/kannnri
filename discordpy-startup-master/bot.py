@@ -583,9 +583,8 @@ async def d(ctx):
 #さいしょに1000渡してそれを定義そこから1000-ｍでとれるかも・・・・/dしたら1000渡してスタートawaitで1000-ｍでおｋ・・・？
 
 @bot.command()
-async def em(ctx, a, b, c, d):
+async def em(ctx, a, b):
     embed=discord.Embed(title= a,description= b, color=0xdc0909)
-    embed.add_field(name= c, value= d, inline=True)
     await ctx.send(embed=embed)
 
 
