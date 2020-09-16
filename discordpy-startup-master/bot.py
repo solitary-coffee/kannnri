@@ -192,6 +192,12 @@ async def kt(ctx, *,kasutamu):
         await bot.change_presence(activity=discord.Game(name=kasutamu))
     else:
         await ctx.send("このコマンドは管理者専用です")
+@bot.command()
+async def follow(ctx):
+    await ctx.send("AMIKUのアナウンスチャンネルをフォローしました")
+    await bot.get_channel(755753208365842472).follow(destination=ctx.channel,reason=None)
+    await bot.get_channel(755753339769192469).follow(destination=ctx.channel,reason=None)
+    await bot.get_channel(755753444614209596).follow(destination=ctx.channel,reason=None)
 
         
 @bot.command(name='eval')
