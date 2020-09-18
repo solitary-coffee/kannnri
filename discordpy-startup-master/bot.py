@@ -65,6 +65,7 @@ pl1n = []
 pl2n = []
 kili = [721675779200516106,727850593330397265]
 glist = [695764835245359179,659401514129031184]
+gila = [750219695646441482,727850593330397265]
 
 @bot.event
 async def on_ready():
@@ -165,7 +166,7 @@ async def on_message(message):
         detect = translator.detect(s)
         m = 'この文字列の言語はたぶん ' + detect.lang + ' です。'
         await message.channel.send(m)
-    if message.guild.id != 727850593330397265:      
+    if message.guild.id not in gila:      
         for word in rog.list:
             if message.author.bot:
                 return
