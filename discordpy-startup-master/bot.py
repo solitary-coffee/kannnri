@@ -33,6 +33,7 @@ from youtube_dl.utils import lookup_unit_table
 import random
 import playlist
 from googletrans import Translator
+import goban
 translator = Translator()
 
 client = discord.Client()
@@ -108,7 +109,7 @@ async def on_message(message):
     GLOBAL_CH_NAME = "coffee-global" # グローバルチャットのチャンネル名
 
     if message.channel.name == GLOBAL_CH_NAME:
-        if message.author.id in glist:
+        if message.author.id in goban.glist:
                 await message.channel.send("あなたはＧＢＡＮされています")
                 return
  
