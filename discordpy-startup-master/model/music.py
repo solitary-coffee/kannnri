@@ -498,7 +498,6 @@ class Greetings(commands.Cog):
 
 
             await ctx.send("loopを終了します")
-
         @commands.command(name='pl')
         async def playlist_(self, ctx,plli):
             await ctx.trigger_typing()
@@ -511,20 +510,20 @@ class Greetings(commands.Cog):
             player = self.get_player(ctx)
             if 'bokaro' in plli :
                 for search in  playlist.bokaro:
-                    source = await self.YTDLSource.create_source(ctx, search, loop=self.bot.loop, download=True)
+                    source = await Greetings.YTDLSource.create_source(self,ctx, search, loop=self.bot.loop, download=True)
 
                     await player.queue.put(source)
     
   
             elif 'sui' in plli :
                 for search in  playlist.sui:
-                    source = await self.YTDLSource.create_source(ctx, search, loop=self.bot.loop, download=True)
+                    source = await Greetings.YTDLSource.create_source(self,ctx, search, loop=self.bot.loop, download=True)
 
                     await player.queue.put(source)
 
             elif 'perc' in plli :
                 for search in  playlist.bokaro:
-                    source = await self.YTDLSource.create_source(ctx, search, loop=self.bot.loop, download=True)
+                    source = await Greetings.YTDLSource.create_source(self,ctx, search, loop=self.bot.loop, download=True)
 
                     await player.queue.put(source)
             else:
