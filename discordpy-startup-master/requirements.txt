@@ -1,6 +1,5 @@
 discord.py[voice] 
 matplotlib
-ffmpeg-python
 youtube-dl
 psutil
 google-api-python-client
