@@ -136,7 +136,7 @@ async def rito(ctx):
     await ctx.send("ゲーム機能が正常に再起動しました")
     bot.reload_extension("model.other")
     await ctx.send("その他機能が正常に再起動しました")
-    bot.load_extension("model.musicmain")
+    bot.reload_extension("model.musicmain")
 
 
     await ctx.send("音楽機能が正常に再起動しました")
