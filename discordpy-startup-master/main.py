@@ -114,7 +114,7 @@ bot.load_extension("model.info")
 bot.load_extension("model.special")
 bot.load_extension("model.game")
 bot.load_extension("model.other")
-bot.load_extension("model.music")
+bot.load_extension("model.musicmain")
 bot.load_extension("model.help")
 bot.load_extension("model.keisan")
 
@@ -136,7 +136,9 @@ async def rito(ctx):
     await ctx.send("ゲーム機能が正常に再起動しました")
     bot.reload_extension("model.other")
     await ctx.send("その他機能が正常に再起動しました")
-    bot.reload_extension("model.music")
+    bot.load_extension("model.musicmain")
+
+
     await ctx.send("音楽機能が正常に再起動しました")
     bot.reload_extension("model.help")
     await ctx.send("ヘルプ機能が正常に再起動しました")
