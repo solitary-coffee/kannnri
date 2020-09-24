@@ -4,3 +4,4 @@ youtube-dl
 psutil
 google-api-python-client
 googletrans
+bs4
