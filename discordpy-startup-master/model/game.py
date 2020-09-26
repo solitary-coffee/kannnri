@@ -123,7 +123,7 @@ class Greetings(commands.Cog):
                     gali.update([(f"{pl2}hp",p2hpg )])
                     await ctx.send(f"回復完了　[{pl2hp}]→[{p2hpg}]")
 
-            if pl1n > 1:
+            if pl1n == 0:
                 await ctx.send("チーム1が全滅させられました　よってチーム2の勝利です")
                 gari1 = []
                 gari2 = []
@@ -136,7 +136,7 @@ class Greetings(commands.Cog):
                 ti2 = []
                 pl1n = []
                 pl2n = []
-            elif pl2n > 1:
+            elif pl2n == 0:
                 await ctx.send("チーム2が全滅させられました　よってチーム1の勝利です")
                 gari1 = []
                 gari2 = []
