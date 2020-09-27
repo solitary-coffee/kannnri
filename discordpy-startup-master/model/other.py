@@ -1,5 +1,7 @@
 import discord
 from discord.ext import commands
+ID = 637850681666961408
+
 
 class Greetings(commands.Cog):
     def __init__(self, bot):
@@ -28,6 +30,40 @@ class Greetings(commands.Cog):
     async def em(self,ctx, a,*, b):
         embed=discord.Embed(title= a,description= b, color=0xdc0909)
         await ctx.send(embed=embed)
+
+    @commands.command()
+    async def ban(ctx, member: discord.Member, *, reason=None):    
+        if ctx.message.author.id == ID:    
+            await member.ban(reason=reason)
+            embed = discord.Embed (title=f'実行者:{ctx.author}', description=f"BANが成功しました:{member.mention}",color=0xff0000)
+            embed.add_field (name=f"ID:{member.id}", value=f"ＢＡＮ理由：{reason}", inline=False)
+            await ctx.send (embed=embed)
+
+
+        elif ctx.message.author.guild_permissions.administrator:   
+            await member.ban(reason=reason)
+            embed = discord.Embed (title=f'実行者:{ctx.author}', description=f"BANが成功しました:{member.mention}",color=0xff0000)
+            embed.add_field (name=f"ID:{member.id}", value=f"ＢＡＮ理由：{reason}", inline=False)
+            await ctx.send (embed=embed) 
+
+    @commands.command()
+    async def kick(ctx, member: discord.Member, *, reason=None):    
+        if ctx.message.author.id == ID:    
+            await member.ban(reason=reason)
+            embed = discord.Embed (title=f'実行者:{ctx.author}', description=f"kickが成功しました:{member.mention}",color=0xff0000)
+            embed.add_field (name=f"ID:{member.id}", value=f"ＢＡＮ理由：{reason}", inline=False)
+            await ctx.send (embed=embed)
+
+
+        elif ctx.message.author.guild_permissions.administrator:   
+            await member.ban(reason=reason)
+            embed = discord.Embed (title=f'実行者:{ctx.author}', description=f"kickが成功しました:{member.mention}",color=0xff0000)
+            embed.add_field (name=f"ID:{member.id}", value=f"ＢＡＮ理由：{reason}", inline=False)
+            await ctx.send (embed=embed) 
+      
+        else:
+            await ctx.send("このコマンドは管理者専用です")
+
 
 
 
