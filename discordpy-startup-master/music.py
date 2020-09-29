@@ -134,6 +134,8 @@ class Music(commands.Cog):
         if ctx.voice_state.is_playing:
             ctx.voice_state.voice.stop()
             await ctx.message.add_reaction('⏹')
+            ctx.voice_state.qloop = not ctx.voice_state.qloop
+            await ctx.send('リストループ機能' + ('on' if ctx.voice_state.qloop else 'off') + 'にしました' )
 
 
     @commands.command(name='skip', aliases=['s'])
@@ -313,7 +315,7 @@ class Music(commands.Cog):
             return await ctx.send('なにも登録されていません')
             
         ctx.voice_state.qloop = not ctx.voice_state.qloop
-        await ctx.send('ループ機能' + ('on' if ctx.voice_state.qloop else 'off') + 'にしました' )
+        await ctx.send('リストループ機能' + ('on' if ctx.voice_state.qloop else 'off') + 'にしました' )
 
         items_per_page = 10
         pages = math.ceil(len(ctx.voice_state.songs) / items_per_page)
