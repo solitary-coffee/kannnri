@@ -11,14 +11,15 @@ bot = commands.Bot(command_prefix="/")
 import asyncio
 import datetime
 
-dt_now = datetime.datetime.now()
+DIFF_JST_FROM_UTC = 9
+now = datetime.datetime.utcnow() + datetime.timedelta(hours=DIFF_JST_FROM_UTC)
 @bot.event
 async def on_ready():
     while True:
 
         await bot.change_presence(activity=discord.Game(name="herokuで稼働中"))
         await asyncio.sleep(5)
-        await bot.change_presence(activity=discord.Game(name=f"起動時間:{dt_now.strftime('%Y-%m-%d %H:%M')}"))
+        await bot.change_presence(activity=discord.Game(name=f"起動時間:{now}"))
         await asyncio.sleep(5)
         await bot.change_presence(activity=discord.Game(name="ヘルプ表示/he"))
         await asyncio.sleep(5)
