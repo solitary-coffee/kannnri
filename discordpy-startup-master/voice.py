@@ -21,11 +21,15 @@ class Song:
         self.requester = source.requester
     
     def create_embed(self):
-        embed = (discord.Embed(title='再生情報', description='```css\n{0.source.title}\n```'.format(self), color=discord.Color.blurple())
+        embed = (discord.Embed(title='再生情報', description='```css\n{0.source.title}\n```　\n 概要欄 ```css\n{0.source.description}\n  ```'.format(self), color=discord.Color.blurple())
                 .add_field(name='再生時間', value=self.source.duration)
                 .add_field(name='再生者', value=self.requester.mention)
                 .add_field(name='アップロード者', value='[{0.source.uploader}]({0.source.uploader_url})'.format(self))
+                .add_field(name='視聴回数', value='{0.source.views}回'.format(self))
+                .add_field(name='高評価', value=':thumbsup_tone2:：{0.source.likes}　'.format(self))
+                .add_field(name='低評価', value=':thumbsdown_tone2:：{0.source.dislikes}'.format(self))
                 .add_field(name='URL', value='[クリック]({0.source.url})'.format(self))
+
                 .set_thumbnail(url=self.source.thumbnail)
                 .set_author(name=self.requester.name, icon_url=self.requester.avatar_url))
         return embed
@@ -67,6 +71,7 @@ class VoiceState:
         self.exists = True
 
         self._loop = False
+        self._qloop = False
         self._autoplay = True
         self._volume = 0.5
         self.skip_votes = set()
@@ -83,6 +88,12 @@ class VoiceState:
     @loop.setter
     def loop(self, value: bool):
         self._loop = value
+    @property
+    def qloop(self):
+        return self._qloop
+    @qloop.setter
+    def qloop(self, value: bool):
+        self._qloop = value
 
     @property
     def autoplay(self):
