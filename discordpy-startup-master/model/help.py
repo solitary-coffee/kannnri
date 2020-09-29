@@ -45,7 +45,7 @@ class Greetings(commands.Cog):
         embed.add_field(name= "```/sloop```", value= "現在の曲をリピートします ", inline=False)
         embed.add_field(name= "```/qloop```", value= "現在のをリストリピートします", inline=False)    
         embed.add_field(name= "```/mix```", value= "シャッフルします（playlistはしません）", inline=False)
-        embed.add_field(name= "```/leave```", value= "BOT vcから抜けます"から, inline=False)
+        embed.add_field(name= "```/leave```", value= "BOT vcから抜けますから", inline=False)
         embed.add_field(name= "```/se [キーワード]```", value= "５曲　検索します", inline=False)
    
         await ctx.send(embed=embed)
