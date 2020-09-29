@@ -1,10 +1,12 @@
 import math
+from re import search
 
 import discord
 from discord.ext import commands
 
 import ytdl
 import voice
+import asyncio
 
 class Music(commands.Cog):
     def __init__(self, bot: commands.Bot):
@@ -304,6 +306,40 @@ class Music(commands.Cog):
                     song = voice.Song(source)
                     await ctx.voice_state.songs.put(song)
                     await ctx.send('リストに追加 {}'.format(str(source)))
+    @commands.command(name='qloop')
+    async def _qloop(self, ctx: commands.Context,page: int = 1):
+
+        if len(ctx.voice_state.song_history) == 0:
+            return await ctx.send('なにも登録されていません')
+            
+        ctx.voice_state.qloop = not ctx.voice_state.qloop
+        await ctx.send('ループ機能' + ('on' if ctx.voice_state.qloop else 'off') + 'にしました' )
+
+        items_per_page = 10
+        pages = math.ceil(len(ctx.voice_state.songs) / items_per_page)
+
+        start = (page - 1) * items_per_page
+        end = start + items_per_page
+
+        queue = []
+        for i, song in enumerate(ctx.voice_state.songs[start:end], start=start):
+            queue.append('"{1.source.url} "'.format(i + 1, song))
+        
+        
+        while ctx.voice_state.qloop == True:               
+            if len(ctx.voice_state.songs) ==  1 :
+                for search in queue:     
+                    print(search)
+                    source = await ytdl.YTDLSource.create_source(ctx, search, loop=self.bot.loop)
+                    song = voice.Song(source)
+                    await ctx.voice_state.songs.put(song)
+                    print("if Trune")
+                    await asyncio.sleep(10) 
+
+            else:
+                print("else")
+                await asyncio.sleep(10)
+ 
             
     @_join.before_invoke
     @_play.before_invoke
