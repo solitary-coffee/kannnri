@@ -31,7 +31,7 @@ class Greetings(commands.Cog):
 
     @commands.command()
     async def suta(self,ctx,channel1: discord.VoiceChannel,channel2: discord.VoiceChannel):
-        if ctx.message.guild.id  in gapl.kili:     
+        if ctx.message.guild.id   not in gapl.kili:     
             global pl1n ,pl2n ,gari1,gari2,ti1,ti2,gali
             def check(m):
                 return m.author == ctx.author
