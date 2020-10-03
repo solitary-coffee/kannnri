@@ -7,12 +7,22 @@ gari1 = []
 gari2 = []
 gali = {
 }
+import asyncio
 
 
 ti1 = list()
 ti2 = list()
 pl1n = []
 pl2n = []
+
+kali = {
+
+}
+
+
+supl = 0
+suli = []
+ans = []
 
 class Greetings(commands.Cog):
     def __init__(self, bot):
@@ -21,9 +31,7 @@ class Greetings(commands.Cog):
 
     @commands.command()
     async def suta(self,ctx,channel1: discord.VoiceChannel,channel2: discord.VoiceChannel):
-        if ctx.message.guild.id  in gapl.kili: 
-            pass
-        else:
+        if ctx.message.guild.id  in gapl.kili:     
             global pl1n ,pl2n ,gari1,gari2,ti1,ti2,gali
             def check(m):
                 return m.author == ctx.author
@@ -40,11 +48,26 @@ class Greetings(commands.Cog):
             pl1n = len(gari1)
             pl2n = len(gari2)
             await ctx.send("チーム1の戦闘情報は")
+            def check1(msg):
+                return msg.channel == ctx.channel or msg.content == '1' or msg.content == '2'or  msg.content == '3'or msg.content == '4'
             for i in range(gale1):
                 if gari1[i] == ctx.me.display_name:
                     pass
                 else:
-                    gali.update([(f"{gari1[i]}hp",random.randint(100, 200) ),(f"{gari1[i]}afk",random.randint(25, 50))])
+                    await ctx.send(f"{gari1[i]}は役割を選択してください \n [1:`銃兵` 2: `後方支援` 3:: `防戦義勇兵`] ")
+                    m = await self.bot.wait_for('message', check=check1)
+                    if m.content == '1':
+                        ranhp = random.randint(120, 150) 
+                        ranafk = random.randint(30,40) 
+                    elif m.content == '2':
+                        ranhp= random.randint(100, 120)
+                        ranafk = random.randint(25, 35)  
+                    elif m.content == '3': 
+                        ranhp = random.randint(110, 130)
+                        ranafk = random.randint(20, 30)   
+
+    
+                    gali.update([(f"{gari1[i]}hp",f"{ranhp}"),(f"{gari1[i]}afk",f"{ranafk}")])
                     hp = gali[gari1[i] + "hp"] 
                     afk = gali[gari1[i] + "afk"]
                     ti1.append (gari1[i])
@@ -55,7 +78,19 @@ class Greetings(commands.Cog):
                 if gari2[i] == ctx.me.display_name:
                     pass           
                 else:
-                    gali.update([(f"{gari2[i]}hp",random.randint(100, 200) ),(f"{gari2[i]}afk",random.randint(25, 50))])
+                    await ctx.send(f"{gari2[i]}は役割を選択してください \n [1:`銃兵` 2: `後方支援` 3:: `防戦義勇兵`] ")
+                    m = await self.bot.wait_for('message', check=check1)
+                    if m.content == '1':
+                        ranhp = random.randint(120, 150) 
+                        ranafk = random.randint(30,40) 
+                    elif m.content == '2':
+                        ranhp= random.randint(100, 120)
+                        ranafk = random.randint(25, 35)  
+                    elif m.content == '3': 
+                        ranhp = random.randint(110, 130)
+                        ranafk = random.randint(20, 30)  
+
+                    gali.update([(f"{gari2[i]}hp",ranhp ),(f"{gari2[i]}afk",f"{ranafk}")])
                     hp = gali[gari2[i] + "hp"] 
                     afk = gali[gari2[i] + "afk"]
                     ti2.append (gari2[i])
@@ -175,5 +210,69 @@ class Greetings(commands.Cog):
             await ctx.send('再び実行する際は/dをお願いします')
 
 
-def setup(bot):
-    return bot.add_cog(Greetings(bot))
+    @commands.Cog.listener()
+    async def on_message(self,message):
+        global supl ,suli
+        if message.author.bot:
+            return
+        if type(message.channel) == discord.DMChannel and self.bot.user == message.channel.me:
+      
+            print(message.content)
+            kali.update([(f"{message.author.name}",message.content)])
+
+
+
+    @commands.command()
+    async def bsu(self,ctx):
+        global supl
+        def check(m):
+            return  m.channel == ctx.message.channel
+        supl = 1
+        await ctx.send("募集します")
+        while supl == 1:  
+            
+            msg = await self.bot.wait_for("message", check=check)
+            if msg.content == str("\jo"):
+                
+                if msg.author.name in suli:
+                    await ctx.send("既に参加しています")
+                else:
+                    await ctx.send(f'{msg.author.mention} \n をバトロワ参加者リストに追加しました')
+                    suli.append(msg.author.name)
+
+
+    @commands.command()
+    async def suta(self,ctx):
+        global supl
+        if supl == 0:
+            await ctx.send("募集されていません　`.bsu` で募集してから実行してください")
+        if supl == 1:
+            await ctx.send("スタートします")
+            supl = 2
+            await ctx.send(suli)
+            an = random.randint(50, 100)
+            print(an)
+            await ctx.send(f"ヒント1  答えは{'偶数' if an % 2 == 0 else '奇数'}です")
+            await asyncio.sleep(10)
+            await ctx.send(f"ヒント2　答えの桁数は{len(str(an))} 桁です")
+            await asyncio.sleep(10)
+            await ctx.send(f"ヒント3　答えの一桁目は{str(an)[-1]} です")
+            await asyncio.sleep(10)
+            await ctx.send("答えをＤＭで送ってください")
+            while len(suli) > len(kali):
+                await ctx.send("全員分送られてません　\n 答えをＡＭＩＫＵにＤＭで送ってください")
+                await asyncio.sleep(10)
+
+            else:
+                await ctx.send("``` ``` ")
+                await ctx.send("全員分送られました　答え合わせをします")
+                for plna in suli:
+                    await ctx.send(f" ```{plna}:{kali[plna]}```")
+                await ctx.send(f"答えは{an}です")
+                await ctx.send("答えがあっていた人は")
+                for plna in suli:
+                    if str(an) == kali[plna]:
+                        await ctx.send(f"```{plna}```")
+                    
+                    else:
+                        await ctx.send("残念ながら正解者はいませんでした・・")     
