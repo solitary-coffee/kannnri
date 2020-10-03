@@ -237,7 +237,7 @@ class Greetings(commands.Cog):
                 if msg.author.name in suli:
                     await ctx.send("既に参加しています")
                 else:
-                    await ctx.send(f'{msg.author.mention} \n をバトロワ参加者リストに追加しました')
+                    await ctx.send(f'{msg.author.mention} \n を参加者リストに追加しました')
                     suli.append(msg.author.name)
 
 
