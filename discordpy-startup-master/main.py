@@ -5,6 +5,7 @@ from deta import rog
 from deta import goban
 from deta import buno
 translator = Translator()
+import os
 
 bot = commands.Bot(command_prefix="/")
 import asyncio
