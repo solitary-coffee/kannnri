@@ -4,58 +4,30 @@ from googletrans import Translator
 from deta import rog
 from deta import goban
 from deta import buno
-import os
 translator = Translator()
 
 bot = commands.Bot(command_prefix="/")
 import asyncio
 import datetime
 
-DIFF_JST_FROM_UTC = 9
-now = datetime.datetime.utcnow() + datetime.timedelta(hours=DIFF_JST_FROM_UTC)
+dt_now = datetime.datetime.now()
 @bot.event
 async def on_ready():
     while True:
 
         await bot.change_presence(activity=discord.Game(name="herokuで稼働中"))
         await asyncio.sleep(5)
-        await bot.change_presence(activity=discord.Game(name=f"起動時間:{now}"))
+        await bot.change_presence(activity=discord.Game(name=f"起動時間:{dt_now.strftime('%Y-%m-%d %H:%M')}"))
         await asyncio.sleep(5)
         await bot.change_presence(activity=discord.Game(name="ヘルプ表示/he"))
         await asyncio.sleep(5)
         await bot.change_presence(activity=discord.Game(name="グローバルチャンネル名をcoffee-global"))
         await asyncio.sleep(15)
-
 @bot.event
 async def on_message(message):
     if message.author.bot:
         # もし、送信者がbotなら無視する
         return
-    GLOBAL_CH_NAME = "coffee-global" # グローバルチャットのチャンネル名
-
-    if message.channel.name == GLOBAL_CH_NAME:
-        if message.author.id in goban.glist:
-                await message.channel.send("あなたはＧＢＡＮされています")
-                return
- 
-        else:
-            
-            await message.delete() # 元のメッセージは削除しておく
-            channels = bot.get_all_channels()
-            global_channels = [ch for ch in channels if ch.name == GLOBAL_CH_NAME]
-            # channelsはbotの取得できるチャンネルのイテレーター
-            #  global_channelsは hoge-global の名前を持つチャンネルのリスト
-            embed = discord.Embed(title=f"ID:{message.author.id}",
-                description=message.content, color=0x00bfff)
-            embed.set_author(name=message.author.display_name, 
-                icon_url=message.author.avatar_url_as(format="png"))
-            embed.set_footer(text=f"{message.guild.name} / {message.channel.name}",
-                icon_url=message.guild.icon_url_as(format="png"))
-            # Embedインスタンスを生成、投稿者、投稿場所などの設定
-            for channel in global_channels:
-            # メッセージを埋め込み形式で転送
-                await channel.send(embed=embed)
-
     if message.content.startswith('!trans'):
         say = message.content
         say = say[7:]
@@ -122,6 +94,7 @@ bot.load_extension("model.other")
 bot.load_extension("model.musicmain")
 bot.load_extension("model.help")
 bot.load_extension("model.keisan")
+bot.load_extension("model.goch")
 
 @bot.command()
 async def rito(ctx):    
@@ -142,13 +115,14 @@ async def rito(ctx):
     bot.reload_extension("model.other")
     await ctx.send("その他機能が正常に再起動しました")
     bot.reload_extension("model.musicmain")
-
-
     await ctx.send("音楽機能が正常に再起動しました")
     bot.reload_extension("model.help")
     await ctx.send("ヘルプ機能が正常に再起動しました")
     bot.reload_extension("model.keisan")
     await ctx.send("計算機能が正常に再起動しました")
+    bot.reload_extension("model.goch")
+    await ctx.send("グローバルチャット機能が正常に再起動しました")
     await ctx.send("すべての機能が正常に再起動しました")
+
 
 bot.run(os.environ['TOKEN'])
