@@ -29,10 +29,11 @@ class Greetings(commands.Cog):
     @commands.command()
     async def em(self,ctx, a,*, b):
         embed=discord.Embed(title= a,description= b, color=0xdc0909)
+        embed.add_field(name= "**AMIKU 関連ー**", value= "[公式サーバー](https://discord.gg/GWrvMT4)　\n [導入リンク](https://discord.com/api/oauth2/authorize?client_id=712597218380742699&permissions=808512560&scope=bot)", inline=False)
         await ctx.send(embed=embed)
 
     @commands.command()
-    async def ban(self,ctx, member: discord.Member, *, reason=None):    
+    async def ban(ctx, member: discord.Member, *, reason=None):    
         if ctx.message.author.id == ID:    
             await member.ban(reason=reason)
             embed = discord.Embed (title=f'実行者:{ctx.author}', description=f"BANが成功しました:{member.mention}",color=0xff0000)
@@ -47,18 +48,18 @@ class Greetings(commands.Cog):
             await ctx.send (embed=embed) 
 
     @commands.command()
-    async def kick(self,ctx, member: discord.Member, *, reason=None):    
+    async def kick(ctx, member: discord.Member, *, reason=None):    
         if ctx.message.author.id == ID:    
             await member.ban(reason=reason)
             embed = discord.Embed (title=f'実行者:{ctx.author}', description=f"kickが成功しました:{member.mention}",color=0xff0000)
-            embed.add_field (name=f"ID:{member.id}", value=f"ＢＡＮ理由：{reason}", inline=False)
+            embed.add_field (name=f"ID:{member.id}", value=f"Kick理由：{reason}", inline=False)
             await ctx.send (embed=embed)
 
 
         elif ctx.message.author.guild_permissions.administrator:   
             await member.ban(reason=reason)
             embed = discord.Embed (title=f'実行者:{ctx.author}', description=f"kickが成功しました:{member.mention}",color=0xff0000)
-            embed.add_field (name=f"ID:{member.id}", value=f"ＢＡＮ理由：{reason}", inline=False)
+            embed.add_field (name=f"ID:{member.id}", value=f"kick理由：{reason}", inline=False)
             await ctx.send (embed=embed) 
       
         else:
