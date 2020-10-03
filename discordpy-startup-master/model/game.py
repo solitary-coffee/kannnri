@@ -275,4 +275,6 @@ class Greetings(commands.Cog):
                         await ctx.send(f"```{plna}```")
                     
                     else:
-                        await ctx.send("残念ながら正解者はいませんでした・・")     
+                        await ctx.send("残念ながら正解者はいませんでした・・")  
+def setup(bot):
+    return bot.add_cog(Greetings(bot))   
