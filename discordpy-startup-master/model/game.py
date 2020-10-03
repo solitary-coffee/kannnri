@@ -242,7 +242,7 @@ class Greetings(commands.Cog):
 
 
     @commands.command()
-    async def suta(self,ctx):
+    async def sjsuta(self,ctx):
         global supl
         if supl == 0:
             await ctx.send("募集されていません　`.bsu` で募集してから実行してください")
