@@ -51,7 +51,7 @@ class Greetings(commands.Cog):
             def check1(msg):
                 return msg.channel == ctx.channel or msg.content == '1' or msg.content == '2'or  msg.content == '3'or msg.content == '4'
             for i in range(gale1):
-                if gari1[i] == ctx.bot.user.display_name:
+                if gari1[i] == str(ctx.bot.user.display_name):
                     pass
                 else:
                     await ctx.send(f"{gari1[i]}は役割を選択してください \n [1:`銃兵` 2: `後方支援` 3:: `防戦義勇兵`] ")
@@ -75,7 +75,7 @@ class Greetings(commands.Cog):
                     await ctx.send(f"```{gari1[i]} HP：{hp}　AFK：{afk}```")
             await ctx.send("チーム2の戦闘情報は")
             for i in range(gale2):
-                if gari2[i] == ctx.bot.user.display_name:
+                if gari2[i] == str(ctx.bot.user.display_name):
                     pass           
                 else:
                     await ctx.send(f"{gari2[i]}は役割を選択してください \n [1:`銃兵` 2: `後方支援` 3:: `防戦義勇兵`] ")
