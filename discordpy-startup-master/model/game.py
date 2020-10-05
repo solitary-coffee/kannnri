@@ -101,6 +101,7 @@ class Greetings(commands.Cog):
             while pl1n > 1 and   pl2n > 1:
                 pl1 = random.choice(ti1)
                 pl1afk = gali[pl1 + "afk"]
+                pl1afk = int(pl1afk)
                 await ctx.send(f"チーム1の{pl1}さんが選択します　[戦闘：1、回復：2]" )
                 msg = await self.bot.wait_for("message", check=check1)
                 pl2 = random.choice(ti2)      
@@ -132,6 +133,7 @@ class Greetings(commands.Cog):
                     return m.author.name == pl2
                 pl2 = random.choice(ti2)
                 pl2afk = gali[pl2 + "afk"]
+                pl2afk = int(pl2afk)
                 await ctx.send(f"チーム2の{pl2}さんが選択します　[戦闘：1、回復：2]" )
                 msg = await self.bot.wait_for("message", check=check2)
                 if  msg.content  == str(1):
