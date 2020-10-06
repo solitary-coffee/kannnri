@@ -31,7 +31,7 @@ class Greetings(commands.Cog):
 
     @commands.command()
     async def suta(self,ctx,channel1: discord.VoiceChannel,channel2: discord.VoiceChannel):
-        if ctx.message.guild.id   not in gapl.kili:     
+        if ctx.message.guild.id  in gapl.kili:     
             global pl1n ,pl2n ,gari1,gari2,ti1,ti2,gali
             def check(m):
                 return m.author == ctx.author
@@ -75,7 +75,7 @@ class Greetings(commands.Cog):
                     await ctx.send(f"```{gari1[i]} HP：{hp}　AFK：{afk}```")
             await ctx.send("チーム2の戦闘情報は")
             for i in range(gale2):
-                if gari2[i] == str(ctx.bot.user.display_name):
+                if gari2[i] ==ctx.bot.user.display_name:
                     pass           
                 else:
                     await ctx.send(f"{gari2[i]}は役割を選択してください \n [1:`銃兵` 2: `後方支援` 3:: `防戦義勇兵`] ")
@@ -101,15 +101,15 @@ class Greetings(commands.Cog):
             while pl1n > 1 and   pl2n > 1:
                 pl1 = random.choice(ti1)
                 pl1afk = gali[pl1 + "afk"]
-                pl1afk = int(pl1afk)
+                pl1afk = int(pl1afk) 
                 await ctx.send(f"チーム1の{pl1}さんが選択します　[戦闘：1、回復：2]" )
                 msg = await self.bot.wait_for("message", check=check1)
                 pl2 = random.choice(ti2)      
                 pl2hp = gali[pl2 + "hp"]  
+                pl2hp =  int(pl2hp)
                 if  msg.content  == str(1):
                   
                     pl2hps =  random.choice([pl1afk-5 ,pl1afk-4,pl1afk-3,pl1afk-2,pl1afk-1,pl1afk,pl1afk+1,pl1afk+2, pl1afk+3,pl1afk+4,  pl1afk+5,0])
-                    pl1hp = int(pl1hp)
                     p2hpg = pl2hp - pl2hps
                     await ctx.send(f"戦闘します 自分の　AFK ：`{pl1afk}` ")
                     await ctx.send(f"攻撃相手は　{pl2}です　相手のＨＰ`{pl2hp}`　")
@@ -142,8 +142,8 @@ class Greetings(commands.Cog):
                  
                     pl1 = random.choice(ti1)      
                     pl1hp = gali[pl1 + "hp"]  
+                    pl1hp = int(pl1hp)
                     pl1hps =  random.choice([pl2afk-5 ,pl2afk-4,pl2afk-3,pl2afk-2,pl2afk-1,pl2afk,pl2afk+1,pl2afk+2, pl2afk+3,pl2afk+4,  pl2afk+5,0])
-                    pl1hps = int(pl1hps)
                     p1hpg = pl1hp - pl1hps
                     await ctx.send(f"戦闘します 自分の　AFK ：`{pl2afk}` ")
                     await ctx.send(f"攻撃相手は　{pl1}です　相手のＨＰ`{pl1hp}`　")
@@ -159,11 +159,9 @@ class Greetings(commands.Cog):
                 if  msg.content  == str(2):
                     pl2afk = gali[pl2 + "afk"] 
                     pl2afk = int(pl2afk)
-                    pl2hp = gali[pl2 + "hp"]  
-                
+                    pl2hp = gali[pl2 + "hp"] 
+                    pl2hp = int(pl2hp) 
                     pl2hps =  random.randint(pl2afk-20 , pl2afk-15)
-                    
-                    pl1hps = int(pl1hps)
        
                     p2hpg = pl2hp + pl2hps
                     gali.update([(f"{pl2}hp",p2hpg )])
@@ -246,12 +244,12 @@ class Greetings(commands.Cog):
                 if msg.author.name in suli:
                     await ctx.send("既に参加しています")
                 else:
-                    await ctx.send(f'{msg.author.mention} \n を参加者リストに追加しました')
+                    await ctx.send(f'{msg.author.mention} \n をバトロワ参加者リストに追加しました')
                     suli.append(msg.author.name)
 
 
     @commands.command()
-    async def sjsuta(self,ctx):
+    async def susuta(self,ctx):
         global supl
         if supl == 0:
             await ctx.send("募集されていません　`.bsu` で募集してから実行してください")
@@ -284,6 +282,8 @@ class Greetings(commands.Cog):
                         await ctx.send(f"```{plna}```")
                     
                     else:
-                        await ctx.send("残念ながら正解者はいませんでした・・")  
+                        await ctx.send("残念ながら正解者はいませんでした・・")         
+
+
 def setup(bot):
-    return bot.add_cog(Greetings(bot))   
+    return bot.add_cog(Greetings(bot))
