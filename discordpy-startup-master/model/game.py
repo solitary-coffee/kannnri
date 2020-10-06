@@ -109,6 +109,7 @@ class Greetings(commands.Cog):
                 if  msg.content  == str(1):
                   
                     pl2hps =  random.choice([pl1afk-5 ,pl1afk-4,pl1afk-3,pl1afk-2,pl1afk-1,pl1afk,pl1afk+1,pl1afk+2, pl1afk+3,pl1afk+4,  pl1afk+5,0])
+                    pl1hp = int(pl1hp)
                     p2hpg = pl2hp - pl2hps
                     await ctx.send(f"戦闘します 自分の　AFK ：`{pl1afk}` ")
                     await ctx.send(f"攻撃相手は　{pl2}です　相手のＨＰ`{pl2hp}`　")
@@ -123,6 +124,7 @@ class Greetings(commands.Cog):
                         await ctx.send(f"攻撃後のＨＰ　` {p2hpg}`")
                 if  msg.content  == str(2):
                     pl1hp = gali[pl1 + "hp"]  
+                    pl1hp = int(pl1hp)
                     pl1hps =  random.randint(pl1afk-20 , pl1afk-15)
                     p1hpg = pl1hp + pl1hps
                     gali.update([(f"{pl1}hp",p1hpg )])
@@ -141,6 +143,7 @@ class Greetings(commands.Cog):
                     pl1 = random.choice(ti1)      
                     pl1hp = gali[pl1 + "hp"]  
                     pl1hps =  random.choice([pl2afk-5 ,pl2afk-4,pl2afk-3,pl2afk-2,pl2afk-1,pl2afk,pl2afk+1,pl2afk+2, pl2afk+3,pl2afk+4,  pl2afk+5,0])
+                    pl1hps = int(pl1hps)
                     p1hpg = pl1hp - pl1hps
                     await ctx.send(f"戦闘します 自分の　AFK ：`{pl2afk}` ")
                     await ctx.send(f"攻撃相手は　{pl1}です　相手のＨＰ`{pl1hp}`　")
@@ -155,8 +158,12 @@ class Greetings(commands.Cog):
                         await ctx.send(f"攻撃後のＨＰ　` {p1hpg}`")
                 if  msg.content  == str(2):
                     pl2afk = gali[pl2 + "afk"] 
+                    pl2afk = int(pl2afk)
                     pl2hp = gali[pl2 + "hp"]  
+                
                     pl2hps =  random.randint(pl2afk-20 , pl2afk-15)
+                    
+                    pl1hps = int(pl1hps)
        
                     p2hpg = pl2hp + pl2hps
                     gali.update([(f"{pl2}hp",p2hpg )])
