@@ -15,11 +15,10 @@ class Greetings(commands.Cog):
         GLOBAL_CH_NAME = "coffee-global" # グローバルチャットのチャンネル名
 
         if message.channel.name == GLOBAL_CH_NAME:
-            if message.author.id in goban.glist:
-                    await message.channel.send("あなたはＧＢＡＮされています")
-                    return
- 
-            else:
+           if message.author.id in goban.glist:
+                await message.channel.send("あなたはＧＢＡＮされています")
+                return
+           else:
             
                 await message.delete() # 元のメッセージは削除しておく
                 channels = self.bot.get_all_channels()
