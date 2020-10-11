@@ -32,10 +32,10 @@ class Greetings(commands.Cog):
                 embed.set_footer(text=f"{message.guild.name} / {message.channel.name}",
                     icon_url=message.guild.icon_url_as(format="png"))
                 #    Embedインスタンスを生成、投稿者、投稿場所などの設定
-                for  channel in global_channels:
+                for  channel1 in global_channels:
                     try:
                     
-                        await channel.send(embed=embed)
+                        await channel1.send(embed=embed)
                     except:
                         await message.channel.send("権限不足です`埋め込みリンク`の権限を許可してください")
 
