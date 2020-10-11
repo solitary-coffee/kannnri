@@ -36,6 +36,7 @@ class Greetings(commands.Cog):
                     try:
                     
                         await channel1.send(embed=embed)
+                        return
                     except:
                         await message.channel.send("権限不足です`埋め込みリンク`の権限を許可してください")
 
