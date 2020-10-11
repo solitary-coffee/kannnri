@@ -40,5 +40,6 @@ class Greetings(commands.Cog):
                         await message.channel.send("権限不足です`埋め込みリンク`の権限を許可してください")
 
 
+
 def setup(bot):
     return bot.add_cog(Greetings(bot))
