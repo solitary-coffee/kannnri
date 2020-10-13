@@ -39,7 +39,7 @@ class Greetings(commands.Cog):
                         
                     
                     except discord.errors.Forbidden:
-                        await message.channel.send("権限不足です`埋め込みリンク`の権限を許可してください")
+                        pass
 
 
 
