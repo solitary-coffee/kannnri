@@ -71,7 +71,7 @@ class Music(commands.Cog):
 
         ctx.voice_state.voice = await destination.connect()
 
-    @commands.command(name='leave', aliases=['disconnect']
+    @commands.command(name='leave', aliases=['disconnect'])
     async def _leave(self, ctx: commands.Context):
         """Clears the queue and leaves the voice channel."""
 
