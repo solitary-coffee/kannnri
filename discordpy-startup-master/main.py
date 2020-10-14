@@ -68,7 +68,7 @@ async def rito(ctx):
     await ctx.send("計算機能が正常に再起動しました")
     bot.reload_extension("model.goch")
     await ctx.send("グローバルチャット機能が正常に再起動しました")
-    await ctx.send("すべての機能が正常に再起動しました"
+    await ctx.send("すべての機能が正常に再起動しました")
 @bot.event
 async def on_command_error(ctx, error):
     error = getattr(error, 'original', error)
