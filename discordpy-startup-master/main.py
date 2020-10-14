@@ -10,6 +10,7 @@ import os
 bot = commands.Bot(command_prefix="/")
 import asyncio
 import datetime
+import textwrap
 
 import sys
 import traceback
