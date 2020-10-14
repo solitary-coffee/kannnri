@@ -11,6 +11,9 @@ bot = commands.Bot(command_prefix="/")
 import asyncio
 import datetime
 
+import sys
+import traceback
+
 dt_now = datetime.datetime.now()
 @bot.event
 async def on_ready():
@@ -65,7 +68,39 @@ async def rito(ctx):
     await ctx.send("計算機能が正常に再起動しました")
     bot.reload_extension("model.goch")
     await ctx.send("グローバルチャット機能が正常に再起動しました")
-    await ctx.send("すべての機能が正常に再起動しました")
+    await ctx.send("すべての機能が正常に再起動しました"
+@bot.event
+async def on_command_error(ctx, error):
+    error = getattr(error, 'original', error)
+    ch = 764771338552082474
+
+
+    
+   
+
+    e = discord.Embed(title='エラー', colour=0xcc3366)
+    e.add_field(name='実行者', value=ctx.author.name)
+    e.add_field(name='タグ・ID', value=f'{ctx.author} (ID: {ctx.author.id})')
+
+    fmt = f'チャンネル: {ctx.channel} (ID: {ctx.channel.id})'
+    if ctx.guild:
+        fmt = f'{fmt}\nサーバー: {ctx.guild} (ID: {ctx.guild.id})'
+
+    e.add_field(name='実行場', value=fmt, inline=False)
+    e.add_field(name='実行コマンド', value=f"`{textwrap.shorten(ctx.message.content, width=512)}`",inline=False)
+
+    exc = ''.join(
+        traceback.format_exception(type(error), error, error.__traceback__, chain=False))
+    e.description = f'```py\n{exc}\n```'
+    e.add_field(name='discord.py ver', value=discord.__version__)
+    e.add_field(name='python ver', value=sys.version)
+    e.timestamp = datetime.datetime.utcnow()
+    m = await bot.get_channel(ch).send(embed=e)
+    embed = discord.Embed(title="エラー", description="", color=0xf00)
+    embed.add_field(name="申し訳ございません　エラーが発生しました", value=f"このエラーについて問い合わせるときは `/dm` またはサーバーでお願いします　\n(開発者からBOT を通じて連絡する場合がございます) \n またこのコードも一緒にお知らせください：{m.id} \n \n [公式サーバー](https://discord.gg/GWrvMT4)", inline=False)
+
+    await ctx.send(embed=embed)
+
 
 
 bot.run(os.environ['TOKEN'])
