@@ -324,7 +324,7 @@ class Music(commands.Cog):
 
         queue = []
         for i, song in enumerate(ctx.voice_state.songs[start:end], start=start):
-            queue.append('"{1.source.url} "'.format(i + 1, song))
+            queue.append('"{1.source.title} "'.format(i + 1, song))
         
         
         while ctx.voice_state.qloop == True:               
