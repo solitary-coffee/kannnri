@@ -4,8 +4,8 @@ from contextlib import redirect_stdout
 ID = 637850681666961408
 
 import datetime
-dt_now = datetime.datetime.now()
-
+import pytz
+dt_now = datetime.datetime.now(pytz.timezone('Asia/Tokyo'))
 
 class Greetings(commands.Cog):
     def __init__(self, bot):
