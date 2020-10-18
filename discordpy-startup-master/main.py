@@ -15,7 +15,8 @@ import textwrap
 bot = commands.Bot(command_prefix='/')
 import asyncio
 import datetime
-dt_now = datetime.datetime.now()
+import pytz
+dt_now = datetime.datetime.now(pytz.timezone('Asia/Tokyo'))
 import os 
 
 
