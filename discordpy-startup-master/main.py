@@ -18,20 +18,6 @@ import datetime
 dt_now = datetime.datetime.now()
 import os 
 
-import logging
-
-# ログレベルを DEBUG に変更
-logging.basicConfig(filename='discord.log', level=logging.DEBUG)
-formatter = '%(levelname)s : %(asctime)s : %(message)s'
-
-# ログレベルを DEBUG に変更
-logging.basicConfig(level=logging.DEBUG, format=formatter)
-
-# 従来の出力
-logging.info('error{}'.format('outputting error'))
-logging.info('warning %s %s' % ('was', 'outputted'))
-# logging のみの書き方
-logging.info('info %s %s', 'test', 'test')
 
 async  def err(ctx):
     ch = 766939626874994688
