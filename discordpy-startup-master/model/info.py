@@ -7,6 +7,13 @@ class Greetings(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self._last_member = None
+    async  def err(self,ctx):
+        import textwrap
+
+        ch = 766939626874994688
+        e = discord.Embed(title=f"機能ログ:{ctx.author.name} \n`{textwrap.shorten(ctx.message.content, width=512)}` ", description=f"　{ctx.guild}/{ctx.channel}　\n{dt_now.strftime('%Y-%m-%d %H:%M')}", color=0xf00)
+        await self.bot.get_channel(ch).send(embed=e)
+
     @commands.command()
     async def ping(self,ctx):
         time_1 = time.perf_counter()
@@ -31,6 +38,7 @@ class Greetings(commands.Cog):
         embed.add_field(name="3回目は:" , value=f"{ping3} ", inline=False)
         embed.add_field(name="平均:" , value=keka , inline=False)
         await ctx.send(embed=embed)
+        await Greetings.err(ctx)
 
     @commands.command()
     async def ritu(self,ctx):
@@ -52,7 +60,8 @@ class Greetings(commands.Cog):
                 f"CPU：{cpu}%\n"
                 f"`[{cpumeter}]`"),
             color=0xff0000)
-        await ctx.send(embed=embed)      
+        await ctx.send(embed=embed)    
+        await Greetings.err(ctx)  
 
 
 
