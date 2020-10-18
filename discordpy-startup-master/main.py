@@ -1,23 +1,47 @@
 import discord
+from discord import embeds
 from discord.ext import commands
 from googletrans import Translator
 from deta import rog
 from deta import goban
 from deta import buno
-translator = Translator()
-import os
-
-bot = commands.Bot(command_prefix="/")
-import asyncio
-import datetime
-import textwrap
-
 import sys
 import traceback
+import logging
+translator = Translator()
 
+import textwrap
+
+bot = commands.Bot(command_prefix='.')
+import asyncio
+import datetime
 dt_now = datetime.datetime.now()
+
+import logging
+
+# ログレベルを DEBUG に変更
+logging.basicConfig(filename='discord.log', level=logging.DEBUG)
+formatter = '%(levelname)s : %(asctime)s : %(message)s'
+
+# ログレベルを DEBUG に変更
+logging.basicConfig(level=logging.DEBUG, format=formatter)
+
+# 従来の出力
+logging.info('error{}'.format('outputting error'))
+logging.info('warning %s %s' % ('was', 'outputted'))
+# logging のみの書き方
+logging.info('info %s %s', 'test', 'test')
+
+async  def err(ctx):
+    ch = 766939626874994688
+    e = discord.Embed(title=f"機能ログ:{ctx.author.name} \n`{textwrap.shorten(ctx.message.content, width=512)}` ", description=f"　{ctx.guild}/{ctx.channel}　\n{dt_now.strftime('%Y-%m-%d %H:%M')}", color=0xf00)
+    await bot.get_channel(ch).send(embed=e)
+
 @bot.event
 async def on_ready():
+    ch = 766939585951170560
+    e = discord.Embed(title="起動ログ", description=f"{dt_now.strftime('%Y-%m-%d %H:%M')}", color=0xf00)
+    await bot.get_channel(ch).send(embed=e)
     while True:
 
         await bot.change_presence(activity=discord.Game(name="herokuで稼働中"))
@@ -28,6 +52,7 @@ async def on_ready():
         await asyncio.sleep(5)
         await bot.change_presence(activity=discord.Game(name="グローバルチャンネル名をcoffee-global"))
         await asyncio.sleep(15)
+
 
 
 bot.load_extension("model.sub")
@@ -44,7 +69,8 @@ bot.load_extension("model.keisan")
 bot.load_extension("model.goch")
 
 @bot.command()
-async def rito(ctx):    
+async def rito(ctx):  
+
     bot.reload_extension("model.sub")
     await ctx.send("サブ機能が正常に再起動しました")
     bot.reload_extension("model.dm")
@@ -70,6 +96,8 @@ async def rito(ctx):
     bot.reload_extension("model.goch")
     await ctx.send("グローバルチャット機能が正常に再起動しました")
     await ctx.send("すべての機能が正常に再起動しました")
+    j =  ctx.author.name
+    await err(ctx)
 @bot.event
 async def on_command_error(ctx, error):
     error = getattr(error, 'original', error)
