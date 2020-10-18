@@ -12,7 +12,7 @@ translator = Translator()
 
 import textwrap
 
-bot = commands.Bot(command_prefix='.')
+bot = commands.Bot(command_prefix='/')
 import asyncio
 import datetime
 dt_now = datetime.datetime.now()
