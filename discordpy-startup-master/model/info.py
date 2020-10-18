@@ -3,6 +3,9 @@ from discord.ext import commands
 import time
 import psutil
 
+import datetime
+dt_now = datetime.datetime.now()
+
 class Greetings(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
