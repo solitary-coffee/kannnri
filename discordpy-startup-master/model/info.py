@@ -64,9 +64,10 @@ class Greetings(commands.Cog):
                 f"`[{cpumeter}]`"),
             color=0xff0000)
         await ctx.send(embed=embed)    
-        await Greetings.err(ctx)  
+        await Greetings.err(self,ctx)  
 
 
+                          
 
 def setup(bot):
     return bot.add_cog(Greetings(bot))
