@@ -40,6 +40,7 @@ class Greetings(commands.Cog):
                     
                     except discord.errors.Forbidden:
                         pass
+        await self.bot.process_commands(message)       
 
 
 
