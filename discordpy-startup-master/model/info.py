@@ -41,7 +41,7 @@ class Greetings(commands.Cog):
         embed.add_field(name="3回目は:" , value=f"{ping3} ", inline=False)
         embed.add_field(name="平均:" , value=keka , inline=False)
         await ctx.send(embed=embed)
-        await Greetings.err(ctx)
+        await Greetings.err(self,ctx)
 
     @commands.command()
     async def ritu(self,ctx):
