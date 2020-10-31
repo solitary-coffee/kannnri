@@ -1,7 +1,7 @@
-discord.py[voice]==1.4.2
+discord.py[voice]
 matplotlib
-youtube-dl
 psutil
 google-api-python-client
 googletrans
 bs4
+git+https://github.com/l1ving/youtube-dl
