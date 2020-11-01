@@ -30,16 +30,10 @@ async def on_ready():
     ch = 766939585951170560
     e = discord.Embed(title="起動ログ", description=f"{dt_now.strftime('%Y-%m-%d %H:%M')}", color=0xf00)
     await bot.get_channel(ch).send(embed=e)
-    while True:
 
-        await bot.change_presence(activity=discord.Game(name="herokuで稼働中"))
-        await asyncio.sleep(5)
-        await bot.change_presence(activity=discord.Game(name=f"起動時間:{dt_now.strftime('%Y-%m-%d %H:%M')}"))
-        await asyncio.sleep(5)
-        await bot.change_presence(activity=discord.Game(name="ヘルプ表示/he"))
-        await asyncio.sleep(5)
-        await bot.change_presence(activity=discord.Game(name="グローバルチャンネル名をcoffee-global"))
-        await asyncio.sleep(15)
+  　await bot.change_presence(activity=discord.Game(name=f"起動時間:{dt_now.strftime('%Y-%m-%d %H:%M')}"))
+
+
 
 
 
