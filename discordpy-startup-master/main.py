@@ -30,8 +30,7 @@ async def on_ready():
     ch = 766939585951170560
     e = discord.Embed(title="起動ログ", description=f"{dt_now.strftime('%Y-%m-%d %H:%M')}", color=0xf00)
     await bot.get_channel(ch).send(embed=e)
-
-  　await bot.change_presence(activity=discord.Game(name=f"起動時間:{dt_now.strftime('%Y-%m-%d %H:%M')}"))
+    await bot.change_presence(activity=discord.Game(name=f"起動時間:{dt_now.strftime('%Y-%m-%d %H:%M')}"))
 
 
 
