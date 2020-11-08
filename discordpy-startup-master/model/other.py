@@ -26,13 +26,13 @@ class Greetings(commands.Cog):
     @commands.command()
     async def j(self,ctx, *, member: discord.Member):
         await ctx.send('{0} 入室履歴: {0.joined_at}' .format(member))
-        await Greetings.err(ctx)
+        await Greetings.err(self,ctx)
 
     @commands.command()
     async def r(self,ctx, *, member: MemberRoles ):
         """Tells you a member's roles."""
         await ctx.send('ロール: ' + ', '.join(member))
-        await Greetings.err(ctx)
+        await Greetings.err(self,ctx)
 
     @commands.command()
     async def ke(self,ctx,*,ss):
@@ -47,7 +47,7 @@ class Greetings(commands.Cog):
 
     @commands.command()
     async def ban(ctx, member: discord.Member, *, reason=None):    
-        await Greetings.err(ctx)
+        await Greetings.err(self,ctx)
         if ctx.message.author.id == ID:    
             await member.ban(reason=reason)
             embed = discord.Embed (title=f'実行者:{ctx.author}', description=f"BANが成功しました:{member.mention}",color=0xff0000)
@@ -63,7 +63,7 @@ class Greetings(commands.Cog):
 
     @commands.command()
     async def kick(ctx, member: discord.Member, *, reason=None):    
-        await Greetings.err(ctx)
+        await Greetings.err(self,ctx)
         if ctx.message.author.id == ID:    
             await member.ban(reason=reason)
             embed = discord.Embed (title=f'実行者:{ctx.author}', description=f"kickが成功しました:{member.mention}",color=0xff0000)
