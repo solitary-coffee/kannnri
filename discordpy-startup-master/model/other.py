@@ -46,7 +46,7 @@ class Greetings(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.command()
-    async def ban(ctx, member: discord.Member, *, reason=None):    
+    async def ban(self,ctx, member: discord.Member, *, reason=None):    
         await Greetings.err(self,ctx)
         if ctx.message.author.id == ID:    
             await member.ban(reason=reason)
@@ -62,7 +62,7 @@ class Greetings(commands.Cog):
             await ctx.send (embed=embed) 
 
     @commands.command()
-    async def kick(ctx, member: discord.Member, *, reason=None):    
+    async def kick(self,ctx, member: discord.Member, *, reason=None):    
         await Greetings.err(self,ctx)
         if ctx.message.author.id == ID:    
             await member.ban(reason=reason)
