@@ -4,4 +4,4 @@ psutil
 google-api-python-client
 googletrans
 bs4
-git+https://github.com/l1ving/youtube-dl
+youtube-dl
