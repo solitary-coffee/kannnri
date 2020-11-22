@@ -51,7 +51,7 @@ class Greetings(commands.Cog):
         if message.author.bot:
         # もし、送信者がbotなら無視する
             return
-        GLOBAL_CH_NAME = "tss" # グローバルチャットのチャンネル名
+        GLOBAL_CH_NAME = "coffee-global" # グローバルチャットのチャンネル名
 
         if message.channel.name == GLOBAL_CH_NAME:
             if message.author.id in goban:
