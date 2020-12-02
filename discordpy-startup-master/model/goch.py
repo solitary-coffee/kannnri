@@ -128,7 +128,8 @@ class Greetings(commands.Cog):
                     icon_url=message.guild.icon_url_as (format="png"))
 
  
-                #    Embedインスタンスを生成、投稿者、投稿場所などの設定                for  CHANNEL_ID in goid:
+                #    Embedインスタンスを生成、投稿者、投稿場所などの設定                
+                for  CHANNEL_ID in goid:
                     try:
                         channel1 = self.bot.get_channel(CHANNEL_ID)
                         
