@@ -136,7 +136,7 @@ class Greetings(commands.Cog):
                         await channel1.send(embed=embed)
                         
                     
-                    except discord.errors.Forbidden :
+                    except :
                        
         
                         pass
@@ -148,7 +148,7 @@ class Greetings(commands.Cog):
                             await channel1.send(embed=embed)
                         pass
                     
-                    except discord.errors.Forbidden :
+                    except:
         
                         pass
         
