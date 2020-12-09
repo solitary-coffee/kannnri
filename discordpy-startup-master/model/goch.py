@@ -90,10 +90,7 @@ class Greetings(commands.Cog):
         if message.author.bot:
         # もし、送信者がbotなら無視する
             return
-        GLOBAL_CH_NAME = "coffee-global" 
-        channels = self.bot.get_all_channels()
-        global_channels = [ch for ch in channels if ch.name == GLOBAL_CH_NAME]
-        if message.channel.id in goid or message.channel.name == GLOBAL_CH_NAME:
+        if message.channel.id in goid:
             if message.author.id in goban:
                 embed = discord.Embed(title="あなたはGBANされています", description="異議などは　[こちらまで](https://discord.gg/GWrvMT4)　", color=0xf00)
         
@@ -138,17 +135,6 @@ class Greetings(commands.Cog):
                     
                     except :
                        
-        
-                        pass
-                for  channel1 in global_channels:
-                    try:
-                        if message.channel.id in goid:
-                            pass
-                        else:
-                            await channel1.send(embed=embed)
-                        pass
-                    
-                    except:
         
                         pass
         
