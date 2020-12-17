@@ -1,8 +1,8 @@
-import discord
 from discord.ext import commands
 import sys
 import json
 import requests
+
 
 goban = []
 goid = []
@@ -30,6 +30,8 @@ class Greetings(commands.Cog):
             data = json.load(data)
             for da in (data['goban']):
                 goban += [da]
+        print("--------------------------------------------")
+        print(f"グローバルチャットBANID更新:\n{goban}")
         
     async def idrodo(self,ctx):
         global goid
@@ -46,6 +48,8 @@ class Greetings(commands.Cog):
                     pass
                 else: 
                     goid += [da]
+        print("-----------------------------------------------")
+        print(f"グローバルチャットID更新:\n {goid}")
         
         
 
@@ -64,7 +68,7 @@ class Greetings(commands.Cog):
             data = json.load(data)
             for da in (data['goban']):
                 goban += [da]
-        print(goban)
+        print(f"coffee-globalでBANしてるID: \n {goban}")
     
         global goid
         
@@ -80,7 +84,7 @@ class Greetings(commands.Cog):
                     pass
                 else:        
                     goid += [da]
-        print(goid)
+        print(f"coffee-globalで登録しているチャンネルID:  \n {goid}")
         
         
     @commands.Cog.listener()
@@ -90,7 +94,8 @@ class Greetings(commands.Cog):
         if message.author.bot:
         # もし、送信者がbotなら無視する
             return
-        if message.channel.id in goid:
+    
+        if message.channel.id in goid :
             if message.author.id in goban:
                 embed = discord.Embed(title="あなたはGBANされています", description="異議などは　[こちらまで](https://discord.gg/GWrvMT4)　", color=0xf00)
         
@@ -104,7 +109,8 @@ class Greetings(commands.Cog):
                     
                     await message.delete()
                 except:
-                    print("e")            
+                    pass
+                          
                  # 元のメッセージは削除しておく
                 
                 # channelsはbotの取得できるチャンネルのイテレーター
@@ -125,7 +131,7 @@ class Greetings(commands.Cog):
                     icon_url=message.guild.icon_url_as (format="png"))
 
  
-                #    Embedインスタンスを生成、投稿者、投稿場所などの設定                
+                #    Embedインスタンスを生成、投稿者、投稿場所などの設定
                 for  CHANNEL_ID in goid:
                     try:
                         channel1 = self.bot.get_channel(CHANNEL_ID)
@@ -133,10 +139,10 @@ class Greetings(commands.Cog):
                         await channel1.send(embed=embed)
                         
                     
-                    except :
-                       
-        
-                        pass
+                    except:
+                        print("-------------------------------------")
+                        print(f"グローバルチャットでエラー\nチャンネルID:{CHANNEL_ID}")
+   
         
 
         
@@ -166,10 +172,12 @@ class Greetings(commands.Cog):
         
             await ctx.send(f"データベースに{ss}を追加しました")
             await self.bot.get_channel(769733803831853136).send(file=discord.File('goban.json'))
-            print(motolist)
+           
             motolist = []
             await Greetings.banrodo(self,ctx)
             await self.bot.get_channel(779888284004384848).send(f"```BANID：{ss}\n 理由：{riyu} \n 実行者：{ctx.author.name}```")
+            print("-------------------------------------------------")
+            print(f"グローバルチャットBANID更新（追加のみ）:\n {ss}")
         else:
             await ctx.send("BAN権限者のみ実行可能")
     
@@ -183,14 +191,16 @@ class Greetings(commands.Cog):
                 moto = json.load(moto)
                 for da in (moto['goban']):
                     if  int(ss) == int(da):
-                        print("e")
+
                         pass
                     elif int(0) == int(da):
                         pass
                     
                     else:
                         motolist += [da]
-            print(motolist)
+                        print("----------------------------------------")
+                        print(f"リストに追加:\n{da}")
+          
 
         
             with open("goban.json","w",encoding="utf-8") as data:
@@ -211,6 +221,8 @@ class Greetings(commands.Cog):
             await self.bot.get_channel(779888284004384848).send(f"```BANID：{ss}\n 理由：{riyu} \n 実行者：{ctx.author.name}```")
 
             await Greetings.banrodo(self,ctx)
+            print("-------------------------------------------------")
+            print(f"グローバルチャットBANID更新（削除のみ):\n {ss}")
         else:
             await ctx.send("BAN権限者のみ実行可能")
     @commands.command()
@@ -248,16 +260,17 @@ class Greetings(commands.Cog):
             for moto in motolist: 
 
                 data.write(f'{str(moto)}')
-                data.write(", \n")
+                data.write(",")
 
             data.write(f'{ctx.channel.id}\n ]')    
             data.write('\n}')               
+
           
 
         
         await ctx.send(f"グローバルチャットに参加しました")
         await self.bot.get_channel(781118741491613717).send(file=discord.File('goid.json'))
-        print(motolist)
+        
         motolist = []
 
         em = discord.Embed(title="グローバルチャット参加通知",
@@ -287,8 +300,10 @@ class Greetings(commands.Cog):
         headers      = {'Content-Type': 'application/json'}
 
         response     = requests.post(webhook_url, json.dumps(main_content), headers=headers)
+        print("-------------------------------------------------")
+        print(f"グローバルチャットID更新（追加のみ）:\n {ctx.channel.id}")
     @commands.command()
-    async def global_Withdrawal(self,ctx,riyu=None):
+    async def global_Withdrawal(self,ctx):
         global motolist 
         ss = ctx.channel.id
         motolist = []
@@ -343,6 +358,8 @@ class Greetings(commands.Cog):
         response     = requests.post(webhook_url, json.dumps(main_content), headers=headers)
 
         await Greetings.idrodo(self,ctx)
+        print("-------------------------------------------------")
+        print(f"グローバルチャットID更新（削除のみ):\n {ctx.channel.id}")
           
  
         
