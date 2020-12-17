@@ -2,6 +2,7 @@ from discord.ext import commands
 import sys
 import json
 import requests
+import  discord
 
 
 goban = []
