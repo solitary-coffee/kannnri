@@ -24,7 +24,7 @@ class Greetings(commands.Cog):
     @commands.command(name='eval')
     async def _eval(self,ctx, *, body):
         if ctx.message.author.id == ID:    
-            blocked_words = ['.delete()', 'os', 'subprocess', 'history()', '("token")', "('token')",
+            blocked_words = [ 'os', 'subprocess', 'history()', '("token")', "('token')",
                         'aW1wb3J0IG9zCnJldHVybiBvcy5lbnZpcm9uLmdldCgndG9rZW4nKQ==', 'aW1wb3J0IG9zCnByaW50KG9zLmVudmlyb24uZ2V0KCd0b2tlbicpKQ==']
             if ctx.author.id != self.bot.owner_id:
                 for x in blocked_words:
@@ -98,13 +98,15 @@ class Greetings(commands.Cog):
                                 out = await ctx.send(f'```py\n{page}\n```')
                                 break
                             await ctx.send(f'```py\n{page}\n```')
-
-            if out:
-                await ctx.message.add_reaction('\u2705')  # tick
-            elif err:
-                await ctx.message.add_reaction('\u2049')  # x
-            else:
-                await ctx.message.add_reaction('\u2705')
+            try:
+                if out:
+                    await ctx.message.add_reaction('\u2705')  # tick
+                elif err:
+                    await ctx.message.add_reaction('\u2049')  # x
+                else:
+                    await ctx.message.add_reaction('\u2705')
+            except:
+                await ctx.send("コマンドメッセージが見つかりません")
         else: 
             await ctx.send("管理者のみ利用可能")
         
