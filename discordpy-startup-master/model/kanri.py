@@ -5,6 +5,7 @@ import io
 import textwrap
 import traceback
 import aiohttp
+import asyncio
 from contextlib import redirect_stdout
 ID = 637850681666961408
 
