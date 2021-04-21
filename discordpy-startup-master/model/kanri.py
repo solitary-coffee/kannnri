@@ -107,8 +107,9 @@ class Greetings(commands.Cog):
                 else:
                     await ctx.message.add_reaction('\u2705')
             except:
-                await ctx.send("コマンドメッセージが見つかりません")
+                m = await ctx.send("コマンドメッセージが見つかりません")
                 await asyncio.sleep(10)
+                await m.delete()
         else: 
             await ctx.send("管理者のみ利用可能")
         
